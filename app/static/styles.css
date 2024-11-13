@@ -1,0 +1,7 @@
+a.navbar-item {
+    font-size: large;
+}
+
+a.navbar-item[aria-selected="true"]{
+    font-weight: bold;
+}
