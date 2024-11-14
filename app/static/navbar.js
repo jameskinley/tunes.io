@@ -23,7 +23,7 @@ function setInactiveIcons() {
     });
 }
 $(document).ready(function () {
-    $(".navbar-item").click(function () {
+    $(".nav-link").click(function () {
         setInactiveIcons();
         let curr = `#${$(this).attr('id')}`;
         $(this).find("img").attr("src", icons.find(icon => icon.id == curr).active);
