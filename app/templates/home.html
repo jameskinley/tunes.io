@@ -22,23 +22,25 @@
                             aria-selected="false" aria-controls="settings" role="tab">
                             <img src="/static/gear.svg">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
                         </a>
+                        <button class="btn navbar-item logout-button">
+                            <img src="/static/logout.svg">&nbsp;<span class="d-none d-sm-inline-block">Logout</span>
+                        </button>
                     </div>
                 </div>
             </nav>
         </div>
         <div class="col py-2">
-            <div class="tab-content" id="page-content">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home">
-                    <h2>Home Content</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque necessitatibus, corrupti assumenda, dolorem quam incidunt quia ipsam, ullam culpa maiores voluptatem ea quisquam reprehenderit a quod accusantium fuga tempore facere?
-                    </p>
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile">
-                    <h2>Profile Content</h2>
-                </div>
-                <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
-                    <h2>Settings Content</h2>
+            <div class="container">
+                <div class="tab-content" id="page-content">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home">
+                        {% include "feed.html" %}
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile">
+                        <h2>Profile Content</h2>
+                    </div>
+                    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
+                        <h2>Settings Content</h2>
+                    </div>
                 </div>
             </div>
         </div>
