@@ -1,26 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-auto">
+    <div class="row full-length">
+        <div class="col-auto max-height-nav-sm full-width-sm centre-sm border-bottom border-right">
             <nav class="navbar navbar-light navbar-expand-sm px-0 flex-row flex-nowrap sticky">
                 <div class="nav flex-column flex-row">
-                    <a class="navbar-brand" href="/">
-                        <h1><img src="/static/logo.svg" width="75" height="75" alt="tunes.io logo">&nbsp;tunes.io</h1>
+                    <a class="nhttp://localhost:5000/#settingsavbar-brand" href="/">
+                        <h1><img src="/static/logo.svg" width="50" height="50" alt="tunes.io logo">&nbsp;tunes.io</h1>
                     </a>
-                    <div class="nav flex-md-column nav-pills" id="nav-btn-list" role="tablist"
+                    <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list" role="tablist"
                         aria-orientation="vertical">
                         <a class="nav-link navbar-item active" id="nav-btn-home" data-toggle="pill" href="#home"
                             aria-selected="true" aria-controls="home" role="tab">
-                            <img src="/static/home-fill.svg">&nbsp;Home
+                            <img src="/static/home-fill.svg">&nbsp;<span class="d-none d-sm-inline-block">Home</span>
                         </a>
                         <a class="nav-link navbar-item" id="nav-btn-profile" data-toggle="pill" href="#profile"
                             aria-selected="false" aria-controls="profile" role="tab">
-                            <img src="/static/person.svg">&nbsp;Profile
+                            <img src="/static/person.svg">&nbsp;<span class="d-none d-sm-inline-block">Profile</span>
                         </a>
                         <a class="nav-link navbar-item" id="nav-btn-settings" data-toggle="pill" href="#settings"
                             aria-selected="false" aria-controls="settings" role="tab">
-                            <img src="/static/gear.svg">&nbsp;Settings
+                            <img src="/static/gear.svg">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
                         </a>
                     </div>
                 </div>

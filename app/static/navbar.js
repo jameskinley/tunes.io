@@ -22,7 +22,6 @@ function setInactiveIcons() {
         $(icon.id).find("img").attr("src", icon.inactive);
     });
 }
-
 $(document).ready(function () {
     $(".navbar-item").click(function () {
         setInactiveIcons();
