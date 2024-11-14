@@ -10,13 +10,13 @@ class SpotifyClient:
         self.__spotify_client__ = spotipy.Spotify(client_credentials_manager=cred_manager)
     
     def search(self, query):
-        raw_results = self.__spotify_client__.search(q=query, limit=5, market=SPOTIFY_LOCALE)
-
-        if(len(raw_results) < 1):
-            return None
+        result = self.__spotify_client__.search(q=query, limit=5, market=SPOTIFY_LOCALE)
         
         tracks = []
-        for result in raw_results:
-            track = result['tracks']['items']
-            tracks.append(Track(album=track['album']['name'], title=track['name'], artist=track['artists'][0]['name'], track_id=track['id']))
+        track_list = result['tracks']['items']
+
+        for track in track_list:
+            print(track)
+            tracks.append(Track(album=track['album']['name'], title=track['name'], artist=track['artists'][0]['name'], track_id=track['id'], artwork=track['album']['images'][1]['url']))
+
         return tracks

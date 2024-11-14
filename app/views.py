@@ -1,6 +1,7 @@
 from app import app
 from os import path
 from flask import send_from_directory, render_template
+from .spotify_client import SpotifyClient
 
 """
 Serves the favicon request. 
@@ -12,7 +13,9 @@ def favicon():
 
 @app.route('/')
 def index():
-    return render_template("home.html")
+    sp = SpotifyClient()
+    track = sp.search("In%The%Stone").pop()
+    return render_template("home.html", track=track)
 
 @app.route('/logout')
 def logout():
