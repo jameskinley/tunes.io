@@ -1,3 +1,21 @@
-<div class="card album-card justify-content-center">
-    <h1>James Kinley</h1>
+<div class="card profile-card justify-content-center">
+    <div class="card-header">
+        <h2><img src="/static/logo.svg" width="50" height="50" alt="tunes.io logo">&nbsp;Profile</h2>
+    </div>
+    <div class="card-body">
+        <div class="d-flex">
+            <img class="card-img img-thumbnail rounded-circle profile-pfp" src="/static/person.svg" alt="Profile Picture">
+            <div class="d-block">
+                <h3>James Kinley</h3>
+                <span class="align-middle">@jameskinley</span>
+            </div>
+        </div>
+        <div>
+            <p>This is a bio!</p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <h3>Posts</h3>
+        {% include "feed.html" %}
+    </div>
 </div>

@@ -5,9 +5,7 @@
         <div class="col-auto max-height-nav-sm full-width-sm centre-sm border-bottom border-right">
             <nav class="navbar navbar-light navbar-expand-sm px-0 flex-row flex-nowrap sticky">
                 <div class="nav flex-column flex-row">
-                    <a class="nhttp://localhost:5000/#settingsavbar-brand" href="/">
-                        <h1><img src="/static/logo.svg" width="50" height="50" alt="tunes.io logo">&nbsp;tunes.io</h1>
-                    </a>
+                    {% include "brand.html" %}
                     <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list" role="tablist"
                         aria-orientation="vertical">
                         <a class="nav-link navbar-item active" id="nav-btn-home" data-toggle="pill" href="#home"
@@ -22,9 +20,9 @@
                             aria-selected="false" aria-controls="settings" role="tab">
                             <img src="/static/gear.svg">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
                         </a>
-                        <button class="btn navbar-item logout-button">
-                            <img src="/static/logout.svg">&nbsp;<span class="d-none d-sm-inline-block">Logout</span>
-                        </button>
+                            <button type="button" class="btn navbar-item logout-button" onclick="location.href='/logout'">
+                                <img src="/static/logout.svg">&nbsp;<span class="d-none d-sm-inline-block">Logout</span>
+                            </button>
                     </div>
                 </div>
             </nav>
@@ -36,7 +34,7 @@
                         {% include "feed.html" %}
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile">
-                        <h2>Profile Content</h2>
+                        {% include "profile.html" %}
                     </div>
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings">
                         <h2>Settings Content</h2>

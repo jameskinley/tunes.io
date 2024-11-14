@@ -32,21 +32,51 @@ a.navbar-item[aria-selected="true"]{
 }
 
 .album-card{
-    width: 25rem;
     height: auto;
     margin-left: auto;
     margin-right: auto;
 }
 
 .album-card-img{
-    margin-top: 1rem;
     width: 200px;
     height: 200px;
+    min-width: 200px !important;
+    max-height: 200px !important;
+}
+
+@media (min-width: 768px){
+    .album-card-img{
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 1rem !important;
+    }
+}
+
+@media (max-width: 768px){
+    .album-card-img{
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1rem;
+        display: block;
+    }
 }
 
 .album-card-pfp{
     width: 32px;
     height: 32px;
+}
+
+.profile-card{
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-pfp {
+    width: 64px;
+    height: 64px;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
 }
 
 .margin-centre{
