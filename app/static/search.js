@@ -1,5 +1,16 @@
+let tracks = [];
+
 function set_song(id) {
     console.log(`clicked id: ${id}`);
+    $('#search-results').hide();
+
+    let track = tracks.find(t => t.track_external_id == id);
+
+    $('#song-artwork').attr('src', track.artwork);
+    $('#song-title').text(track.title);
+    $('#song-album-artist').text(`${track.album} • ${track.artist}`);
+    $('#post-preview').removeClass('d-none');
+    $('#post-preview').addClass('d-flex');
 }
 
 function get_html(response) {
@@ -18,6 +29,7 @@ function get_html(response) {
 }
 
 function populate_results(response) {
+    tracks = response;
     $('#search-results').html(get_html(response))
     $('#search-results').show();
 }
@@ -39,4 +51,9 @@ $(document).ready(function() {
             }
         });
     });
+
+    //Close when we click off
+    $(document).click(function(event) { 
+        if (!$(event.target).closest('#search-results').length && !$(event.target).is('#search-input')) { 
+            $('#search-results').hide(); } });
 });

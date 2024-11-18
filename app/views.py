@@ -6,6 +6,7 @@ from flask import send_from_directory, render_template, redirect, request, json
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import *
 from .signup_form import SignupForm
+from .newpost_form import PostForm
 from .spotify_client import SpotifyClient
 
 admin.add_view(ModelView(Track, db.session))
@@ -43,10 +44,12 @@ def search():
 def index():
     if not current_user.is_authenticated:
         return redirect('/login')
+    
+    form = PostForm()
 
     sp = SpotifyClient()
     track = sp.search("yellow coldplay")[0]
-    return render_template("home.html", active="home", user=current_user)
+    return render_template("home.html", active="home", user=current_user, form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

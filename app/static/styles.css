@@ -119,3 +119,13 @@ button.like-button{
     width: 100%;
     white-space: wrap;
 }
+
+.full-centre{
+    margin: auto;
+    padding: 0.5rem;
+}
+
+.post-preview{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
