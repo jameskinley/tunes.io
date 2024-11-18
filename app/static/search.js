@@ -1,14 +1,18 @@
+function set_song(id) {
+    console.log(`clicked id: ${id}`);
+}
+
 function get_html(response) {
     let html = '';
     response.forEach(track => {
         html += `
-            <div class="d-flex">
+            <a id="${track.track_external_id}" class="d-flex border dropdown-item search-panel" onclick="set_song(this.id)">
                 <img class="search-artwork" src="${track.artwork}" alt="Artwork" width="75px" height="75px">
                 <div class="d-block">
                     <strong>${track.title}</strong>
-                    <p>${track.album}&#x2022;${track.artist}</p>
+                    <p>${track.album} &#x2022; ${track.artist}</p>
                 </div>
-            </div>`;
+            </a>`;
     });
     return html;
 }
