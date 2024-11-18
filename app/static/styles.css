@@ -110,3 +110,10 @@ button.like-button{
     margin-top: auto;
     margin-bottom: auto;
 }
+
+.search-artwork{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

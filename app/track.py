@@ -8,3 +8,11 @@ class Track:
         self.artist = artist
         self.album = album
         self.artwork = artwork
+
+    def to_dict(self): 
+        return { 
+            'track_external_id': self.track_external_id, 
+            'title': self.title, 
+            'artist': self.artist, 
+            'album': self.album, 
+            'artwork': self.artwork }

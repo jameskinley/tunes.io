@@ -2,7 +2,7 @@ from app import app, login_manager, admin, logging as logger
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user, logout_user, login_user
 from os import path
-from flask import send_from_directory, render_template, redirect, request, jsonify
+from flask import send_from_directory, render_template, redirect, request, json
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import *
 from .signup_form import SignupForm
@@ -21,6 +21,23 @@ Code adapted from https://flask.palletsprojects.com/en/stable/patterns/favicon/
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(path.join(app.root_path, 'static'), 'favicon.ico')
+
+@app.route('/search', methods=['POST'])
+def search():
+    search_query = request.json['query']
+
+    if search_query == None or '':
+        return "{}"
+    
+    logger.debug(f"Searching Spotify with query: '{search_query}'")
+
+    sp = SpotifyClient()
+    tracks = sp.search(search_query)
+
+    for i in range(len(tracks)):
+        tracks[i] = tracks[i].to_dict()
+
+    return json.dumps(tracks)
 
 @app.route('/')
 def index():
