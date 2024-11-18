@@ -1,8 +1,9 @@
 from app import app, login_manager, admin
 from flask_admin.contrib.sqla import ModelView
 from os import path
-from flask import send_from_directory, render_template
+from flask import send_from_directory, render_template, redirect
 from .models import *
+from .signup_form import SignupForm
 from .spotify_client import SpotifyClient
 
 admin.add_view(ModelView(Track, db.session))
@@ -23,19 +24,23 @@ def favicon():
 def index():
     sp = SpotifyClient()
     track = sp.search("yellow coldplay")[0]
-    return render_template("home.html", track=track)
+    return render_template("home.html", track=track, active="home")
+
+@app.route('/profile')
+def profile():
+    return render_template("profile.html", active="profile")
 
 @app.route('/login')
 def login():
-    return 'Login'
+    return render_template("authform.html", authaction='/login', submitbtn_text='Login', form=SignupForm())
 
-@app.route('/register')
-def register():
-    return 'Register'
+@app.route('/signup')
+def signup():
+    return render_template("authform.html", authaction="/signup", submitbtn_text="Sign up", form=SignupForm())
 
 @app.route('/logout')
 def logout():
-    return render_template("unauthenticated.html")
+    return redirect('/login')
 
 @login_manager.user_loader
 def load_user(user_id):

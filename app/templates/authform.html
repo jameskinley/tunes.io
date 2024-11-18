@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="card justify-content-center">
+        <div class="card-header">
+            {% include "brand.html" %}
+        </div>
+        <div class="card-body">
+            <h2>
+                {{ submitbtn_text }}
+            </h2>
+            <form action="{{ authaction }}", method="POST", name="Signup Form">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username.label() }}
+                    {{ form.username(class='form-control')}}
+                    <span class="invalid-feedback" id="title-error"></span>
+                </p>
+                <p>
+                    {{ form.password.label() }}
+                    {{ form.password(class='form-control')}}
+                    <span class="invalid-feedback" id="title-error"></span>
+                </p>
+                <button type="submit" class="btn btn-primary">
+                    {{ submitbtn_text }}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
