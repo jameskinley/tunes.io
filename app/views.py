@@ -1,8 +1,8 @@
-from app import app, login_manager, admin
+from app import app, login_manager, admin, logging as logger
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user, logout_user, login_user
 from os import path
-from flask import send_from_directory, render_template, redirect, request
+from flask import send_from_directory, render_template, redirect, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import *
 from .signup_form import SignupForm
@@ -93,4 +93,6 @@ def logout():
 
 @login_manager.user_loader
 def load_user(user_id):
+
+    logger.debug(f"Attempting to load user with ID: {user_id}")
     return User.query.filter_by(user_id=user_id).first()

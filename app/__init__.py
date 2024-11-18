@@ -23,6 +23,7 @@ babel = Babel(app, locale_selector=get_locale)
 admin = Admin(app, template_mode='bootstrap4')
 
 login_manager = LoginManager()
+login_manager.session_protection = True
 login_manager.init_app(app)
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s | %(levelname)s | %(message)s")

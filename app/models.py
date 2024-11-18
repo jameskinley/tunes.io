@@ -9,6 +9,7 @@ class Track(db.Model):
     spotify_id = db.Column(db.String(50), index=True, unique=True)
 
 class User(UserMixin, db.Model):
+
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, index=True)
     password = db.Column(db.String(100))
@@ -27,7 +28,10 @@ class User(UserMixin, db.Model):
                                 backref='following_list')
     
     def get_id(self):
-        return self
+        return self.user_id
+    
+    def __repr__(self):
+        return f'<User{self.username}'
 
 class Follow(db.Model):
     follow_id = db.Column(db.Integer, primary_key=True)
