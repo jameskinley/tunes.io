@@ -104,3 +104,9 @@ button.like-button{
     background-color: transparent !important;
     border-color: transparent !important;
 }
+
+.aux-link{
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}

@@ -25,6 +25,9 @@ class User(UserMixin, db.Model):
     following = db.relationship('Follow',
                                 foreign_keys='Follow.follower',
                                 backref='following_list')
+    
+    def get_id(self):
+        return self
 
 class Follow(db.Model):
     follow_id = db.Column(db.Integer, primary_key=True)
