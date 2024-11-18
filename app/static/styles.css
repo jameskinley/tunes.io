@@ -1,26 +1,36 @@
 a.navbar-item {
     font-size: large;
+    color: black;
+    vertical-align: middle !important;
 }
 
 a.navbar-item[aria-selected="true"]{
     font-weight: bold;
+    color: black !important;
+    background-color: transparent !important;
 }
 
 .full-length{
     height: 100vh;
 }
 
+.newpost-button {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+}
+
 @media (min-width: 576px) {
     .logout-button {
         margin-top: 1rem;
     }    
+
+    .newpost-button {
+        margin-top: 1rem;
+    }
 }
 
 @media (max-width: 576px) {
-
-    .logout-button {
-        margin-top: auto;
-    }
 
     .full-width-sm{
         width: 100vh;

@@ -20,7 +20,10 @@
                             aria-selected="false" aria-controls="settings" role="tab">
                             <img src="/static/gear.svg">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
                         </a>
-                        <button type="button" class="btn navbar-item logout-button" onclick="location.href='/logout'">
+                        <button class="btn newpost-button" id="nav-btn-newpost" href="#newpost" aria-controls="addpost", role="button">
+                            <img src="/static/plus-circle.svg">&nbsp;<span class="d-none d-sm-inline-block">New Post</span>
+                        </button>
+                        <button type="button" class="btn logout-button" onclick="location.href='/logout'">
                             <img src="/static/logout.svg">&nbsp;<span class="d-none d-sm-inline-block">Logout</span>
                         </button>
                     </div>

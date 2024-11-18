@@ -1,7 +1,15 @@
-from app import app, login_manager
+from app import app, login_manager, admin
+from flask_admin.contrib.sqla import ModelView
 from os import path
-from flask import send_from_directory, render_template, Blueprint
+from flask import send_from_directory, render_template
+from .models import *
 from .spotify_client import SpotifyClient
+
+admin.add_view(ModelView(Track, db.session))
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Post, db.session))
+admin.add_view(ModelView(Follow, db.session))
+admin.add_view(ModelView(Like, db.session))
 
 """
 Serves the favicon request. 
@@ -14,7 +22,7 @@ def favicon():
 @app.route('/')
 def index():
     sp = SpotifyClient()
-    track = sp.search("In%The%Stone")[0]
+    track = sp.search("yellow coldplay")[0]
     return render_template("home.html", track=track)
 
 @app.route('/login')
