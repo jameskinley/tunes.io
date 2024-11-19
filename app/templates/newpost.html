@@ -7,8 +7,11 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body margin-centre">
+          <div class="text-center">
+            <h4>What are you listening to?</h4>
             {% include "song_search.html" %}
+          </div>
             <form method="POST", action="/newpost">
               {{ form.hidden_tag() }}
               {{ form.track_id }}
@@ -19,19 +22,17 @@
                     <span id="song-album-artist"></span>
                 </div>
             </div>
-              <p>
+              <p id="post-description" class="d-none">
                 {{ form.description.label() }}
                 {{ form.description(class='form-control')}}
                 <span class="invalid-feedback" id="title-error"></span>
               </p>
-              <button class="btn btn-primary" type="submit">
-                Post
-              </button>
+              <div id="post-submit" class="d-none">
+                <button disabled class="btn btn-primary" type="submit">
+                  Post
+                </button>
+              </div>
             </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

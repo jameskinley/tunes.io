@@ -9,8 +9,16 @@ function set_song(id) {
     $('#song-artwork').attr('src', track.artwork);
     $('#song-title').text(track.title);
     $('#song-album-artist').text(`${track.album} • ${track.artist}`);
+
     $('#post-preview').removeClass('d-none');
     $('#post-preview').addClass('d-flex');
+
+    $('#post-description').removeClass('d-none');
+    $('#post-description').addClass('d-block');
+
+    $('#post-submit').removeClass('d-none');
+    $('#post-submit').addClass('d-flex');
+    $('#post-submit').find('button').removeAttr('disabled');
 }
 
 function get_html(response) {
