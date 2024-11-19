@@ -1,5 +1,6 @@
 from app import db, logging as logger
 from .models import Post
+from .post_model import PostModel
 from .spotify_client import SpotifyClient
 
 def add_post(user_id, track_id, description):
@@ -14,9 +15,9 @@ def add_post(user_id, track_id, description):
 def get_posts():
     post_raw =  Post.query.order_by(Post.post_id.desc())
     sp = SpotifyClient()
-    tracks = []
+    posts = []
 
     for postr in post_raw:
-        tracks.append(sp.get_track(postr.track_id))
+        posts.append(PostModel(sp.get_track(postr.track_id), postr.user.username, postr.likes.count, postr.description))
 
-    return tracks
+    return posts
