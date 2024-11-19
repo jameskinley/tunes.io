@@ -1,5 +1,5 @@
 from app import db, logging as logger
-from .models import Post
+from .models import Post, Like
 from .post_model import PostModel
 from .spotify_client import SpotifyClient
 
@@ -12,12 +12,32 @@ def add_post(user_id, track_id, description):
 
     db.session.commit()
 
-def get_posts():
+def get_posts(current_user_id):
     post_raw =  Post.query.order_by(Post.post_id.desc())
     sp = SpotifyClient()
     posts = []
 
+
     for postr in post_raw:
-        posts.append(PostModel(sp.get_track(postr.track_id), postr.user.username, postr.likes.count, postr.description))
+        posts.append(PostModel(any(like.user_id == current_user_id for like in postr.likes), 
+                               postr.post_id, sp.get_track(postr.track_id), 
+                               postr.user.username, 
+                               postr.likes.count, 
+                               postr.description))
 
     return posts
+
+def set_like(user_id, post_id, state):
+    logger.debug(f"Setting post {post_id} to like state {state}")
+
+    if state:
+        like = Like(user_id=user_id, post_id=post_id)
+        db.session.add(like)
+        db.session.commit()
+        return
+    
+    existing_like = Like.query.filter_by(post_id=post_id, user_id=user_id).first()
+
+    if existing_like:
+        db.session.delete(existing_like)
+        db.session.commit()

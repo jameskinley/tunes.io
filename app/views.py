@@ -8,7 +8,7 @@ from .models import *
 from .signup_form import SignupForm
 from .newpost_form import PostForm
 from .spotify_client import SpotifyClient
-from .post_repository import add_post, get_posts
+from .post_repository import add_post, get_posts, set_like
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Post, db.session))
@@ -40,6 +40,11 @@ def search():
 
     return json.dumps(tracks)
 
+@app.route('/like', methods=['POST'])
+def like():
+    set_like(current_user.user_id, request.json['post_id'], request.json['state'])
+    return json.dumps({'status': 'OK'})
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if not current_user.is_authenticated:
@@ -49,7 +54,7 @@ def index():
     
     if request.method == 'GET':
         logger.debug("Getting posts.")
-        return render_template("home.html", active="home", user=current_user, form=form, posts=get_posts())
+        return render_template("home.html", active="home", user=current_user, form=form, posts=get_posts(current_user.user_id))
     
     if form.validate_on_submit():
         logger.debug("Adding post.")
