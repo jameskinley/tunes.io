@@ -23,3 +23,7 @@ class SpotifyClient:
             tracks.append(Track(album=track['album']['name'], title=track['name'], artist=track['artists'][0]['name'], track_id=track['id'], artwork=track['album']['images'][1]['url']))
 
         return tracks
+    
+    def get_track(self, track_id):
+        track = self.__spotify_client__.track(track_id)
+        return Track(album=track['album']['name'], title=track['name'], artist=track['artists'][0]['name'], track_id=track['id'], artwork=track['album']['images'][1]['url'])

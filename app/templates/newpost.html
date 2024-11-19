@@ -12,9 +12,8 @@
             <h4>What are you listening to?</h4>
             {% include "song_search.html" %}
           </div>
-            <form method="POST", action="/newpost">
+            <form method="POST", action="/">
               {{ form.hidden_tag() }}
-              {{ form.track_id }}
               <div id="post-preview" class="post-preview d-none">
                 <img id="song-artwork" class="full-centre rounded" width="100px" height="100px" src="", alt="Album Cover">
                 <div class="d-block full-centre">

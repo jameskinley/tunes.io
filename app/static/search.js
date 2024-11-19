@@ -6,6 +6,9 @@ function set_song(id) {
 
     let track = tracks.find(t => t.track_external_id == id);
 
+    if(!track) return;
+
+    $('#track_id').val(id);
     $('#song-artwork').attr('src', track.artwork);
     $('#song-title').text(track.title);
     $('#song-album-artist').text(`${track.album} • ${track.artist}`);

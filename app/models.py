@@ -4,10 +4,6 @@ from flask_login import UserMixin
 """
 Used to store spotify track IDs for posts.
 """
-class Track(db.Model):
-    track_id = db.Column(db.Integer, primary_key=True)
-    spotify_id = db.Column(db.String(50), index=True, unique=True)
-
 class User(UserMixin, db.Model):
 
     user_id = db.Column(db.Integer, primary_key=True)
@@ -31,7 +27,7 @@ class User(UserMixin, db.Model):
         return self.user_id
     
     def __repr__(self):
-        return f'<User{self.username}'
+        return f'<User{self.username}>'
 
 class Follow(db.Model):
     follow_id = db.Column(db.Integer, primary_key=True)
@@ -41,7 +37,8 @@ class Follow(db.Model):
 class Post(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
-    track_id = db.Column(db.Integer, db.ForeignKey('track.track_id'))
+    track_id = db.Column(db.String)
+    description = db.Column(db.String(1000))
     likes = db.relationship('Like', backref='post', lazy='dynamic')
 
 class Like(db.Model):

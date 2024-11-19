@@ -8,8 +8,8 @@ from .models import *
 from .signup_form import SignupForm
 from .newpost_form import PostForm
 from .spotify_client import SpotifyClient
+from .post_repository import add_post, get_posts
 
-admin.add_view(ModelView(Track, db.session))
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Post, db.session))
 admin.add_view(ModelView(Follow, db.session))
@@ -40,16 +40,25 @@ def search():
 
     return json.dumps(tracks)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if not current_user.is_authenticated:
         return redirect('/login')
     
     form = PostForm()
+    
+    if request.method == 'GET':
+        logger.debug("Getting posts.")
+        return render_template("home.html", active="home", user=current_user, form=form, posts=get_posts())
+    
+    if form.validate_on_submit():
+        logger.debug("Adding post.")
 
-    sp = SpotifyClient()
-    track = sp.search("yellow coldplay")[0]
-    return render_template("home.html", active="home", user=current_user, form=form)
+        add_post(current_user.user_id, track_id=form.track_id.data, description=form.description.data)
+    else:
+        logger.debug("Form invalid.")
+
+    return redirect('/')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
