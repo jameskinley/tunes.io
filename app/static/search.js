@@ -28,11 +28,11 @@ function get_html(response) {
     let html = '';
     response.forEach(track => {
         html += `
-            <a id="${track.track_external_id}" class="d-flex border dropdown-item search-panel" onclick="set_song(this.id)">
+            <a id="${track.track_external_id}" class="d-flex border search-panel" onclick="set_song(this.id)">
                 <img class="search-artwork" src="${track.artwork}" alt="Artwork" width="75px" height="75px">
                 <div class="d-block">
                     <strong>${track.title}</strong>
-                    <p>${track.album} &#x2022; ${track.artist}</p>
+                    <p class="overflow-wrap">${track.album} &#x2022; ${track.artist}</p>
                 </div>
             </a>`;
     });

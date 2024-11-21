@@ -111,13 +111,24 @@ button.like-button{
     margin-bottom: auto;
 }
 
+.search-bar{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .search-artwork{
     margin: 1rem;
 }
 
 .search-panel{
+    padding: 0.2rem;
     width: 100%;
     white-space: wrap;
+}
+
+.overflow-wrap{
+    overflow-wrap: break-word;
+    white-space: wrap !important;
 }
 
 .full-centre{
