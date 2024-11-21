@@ -23,9 +23,9 @@
 {% endif %}
 <div class="container-fluid">
     <div class="row full-length">
-        <div class="col-auto max-height-nav-sm full-width-sm centre-sm border-bottom border-right">
-            <nav class="navbar navbar-light navbar-expand-sm px-0 flex-row flex-nowrap sticky">
-                <div class="nav flex-column flex-row">
+        <div class="col-auto max-height-nav-sm full-width-sm centre-sm">
+            <nav class="navbar navbar-light navbar-sticky navbar-expand-sm px-0 flex-row flex-nowrap">
+                <div class="nav flex-column">
                     {% include "brand.html" %}
                     <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list" role="tablist"
                         aria-orientation="vertical">
@@ -52,7 +52,7 @@
                 </div>
             </nav>
         </div>
-        <div class="col py-2">
+        <div class="col py-2 content-margin border-left">
             <div class="container">
                 <div class="tab-content" id="page-content">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home">

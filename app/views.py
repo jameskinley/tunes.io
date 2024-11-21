@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .models import *
 from .signup_form import SignupForm
 from .newpost_form import PostForm, post_form_handler
+from .settings_form import SettingsForm
 from .spotify_client import SpotifyClient
 from .post_repository import get_posts, set_like
 from .user_repository import get_user_byid, get_user_byusername
@@ -102,9 +103,14 @@ def settings():
     redir = login_guard()
     if redir is not None: return redir
     form = PostForm()
+    settings_form = SettingsForm()
+    settings_form.SetUserDefaults(current_user)
 
     if request.method == 'GET':
-        return render_template("settings.html", form=form, user= load_user(current_user.user_id))
+        return render_template("settings.html", 
+                               form=form, 
+                               user= load_user(current_user.user_id), 
+                               settings_form=settings_form)
     
     post_form_handler()
     return redirect('/')
