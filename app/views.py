@@ -9,6 +9,7 @@ from .signup_form import SignupForm
 from .newpost_form import PostForm, post_form_handler
 from .spotify_client import SpotifyClient
 from .post_repository import get_posts, set_like
+from .user_repository import get_user_byid, get_user_byusername
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Post, db.session))
@@ -74,20 +75,36 @@ def profile():
     form = PostForm()
 
     if request.method == 'GET':
-        user = load_user(current_user.user_id) #todo - make work for any user! Public & Private views
-        return render_template("profile.html", posts=get_posts(current_user.user_id, current_user.user_id), form=form, user=user)
+        username = request.args.get('user')
+        if username is '' or username is None:
+            return redirect('/')
+        
+        user = get_user_byusername(username)
+
+        if user is None:
+            return redirect('/')
+        
+        is_current_user = False
+        if user.user_id == current_user.user_id:
+            is_current_user = True
+
+        return render_template("profile.html", 
+                               posts=get_posts(current_user.user_id, user.user_id), 
+                               form=form, 
+                               user=user, 
+                               is_current_user=is_current_user)
     
     post_form_handler()
     return redirect('/')
 
-@app.route('/settings')
+@app.route('/settings', methods=['GET', 'POST'])
 def settings():
     redir = login_guard()
     if redir is not None: return redir
     form = PostForm()
 
     if request.method == 'GET':
-        return render_template("settings.html", form=form)
+        return render_template("settings.html", form=form, user= load_user(current_user.user_id))
     
     post_form_handler()
     return redirect('/')
@@ -161,4 +178,4 @@ def logout():
 @login_manager.user_loader
 def load_user(user_id):
     logger.debug(f"Attempting to load user with ID: {user_id}")
-    return User.query.filter_by(user_id=user_id).first()
+    return get_user_byid(user_id)

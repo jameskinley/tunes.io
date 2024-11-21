@@ -1,6 +1,7 @@
 <div class="card album-card justify-content-center">
     <div class="card-header">
-        <img class="card-img img-thumbnail rounded-circle album-card-pfp" src="/static/person.svg" alt="X">&nbsp;<span class="align-middle">{{ post.username }}</span>
+        <img class="card-img img-thumbnail rounded-circle album-card-pfp" src="/static/person.svg" alt="X">&nbsp;
+        <a class="align-middle profile-link" href="/profile?user={{ post.username }}" data-toggle="tooltip" title="See {{ post.username }}'s profile">{{ post.username }}</a>
     </div>
     <div class="card-body">
         <div class="d-md-flex">
@@ -13,7 +14,7 @@
                 <p class="font-weight-light">
                     {{ post.description }}
                 </p>
-                <div class="badge badge-secondary like-count">
+                <div class="badge badge-dark like-count" data-toggle="tooltip" title="Heart this post!">
                     <span id="{{post.post_id}}-count" class="like-count align-middle">{{post.likes}}</span>
                     <button class="btn btn-link" id="{{post.post_id}}" class="btn" type="button" onclick="toggle_liked(this.id)">
                         {% if post.user_liked %}

@@ -94,6 +94,10 @@ a.navbar-item[aria-selected="true"]{
     margin-bottom: 1rem;
 }
 
+a.profile-link{
+    color: black;
+}
+
 .margin-centre{
     margin-left: auto;
     margin-right: auto;

@@ -14,7 +14,9 @@
                         <span class="align-middle">@{{ user.username }}</span>
                     {% else %}
                         <h3>@{{ user.username}}</h3>
+                        {% if is_current_user %}
                         <span class="align-middle"><a href="/settings">Add a name here!</a></span>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
@@ -23,7 +25,9 @@
                     {% if user.bio %}
                         {{ user.bio }}
                     {% else %}
-                        No bio yet! <a href="/settings">Why not add one!</a>
+                        {% if is_current_user %}
+                            No bio yet! <a href="/settings">Why not add one!</a>
+                        {% endif %}
                     {% endif %}
                 </p>
             </div>
