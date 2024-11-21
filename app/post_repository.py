@@ -26,7 +26,7 @@ def get_posts(current_user_id, userfilter = None):
         posts.append(PostModel(any(like.user_id == current_user_id for like in postr.likes), 
                                postr.post_id, sp.get_track(postr.track_id), 
                                postr.user.username, 
-                               postr.likes.count, 
+                               postr.likes.count(), 
                                postr.description))
 
     return posts

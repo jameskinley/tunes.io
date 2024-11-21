@@ -140,3 +140,12 @@ button.like-button{
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
+div.like-count{
+    padding-left: 1rem;
+}
+
+span.like-count{
+    font-size: medium;
+    font-weight: bold;
+}

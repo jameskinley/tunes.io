@@ -1,4 +1,7 @@
 function set_like(id, state, element) {
+
+    let like_count = $(`#${id}-count`);
+
     $.ajax({
         type: "POST",
         url: "/like",
@@ -12,9 +15,11 @@ function set_like(id, state, element) {
             console.log(`Updated like for post ${id} to ${state}`);
             if(state == 1){
                 element.attr("src", "/static/heart-fill.svg");
+                like_count.text(Number(like_count.text()) + 1);
                 return;
             }
             element.attr("src", "/static/heart.svg");
+            like_count.text(Number(like_count.text()) - 1);
         }
     });
 }

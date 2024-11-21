@@ -13,13 +13,16 @@
                 <p class="font-weight-light">
                     {{ post.description }}
                 </p>
-                <button class="btn btn-link" id="{{post.post_id}}" class="btn" type="button" onclick="toggle_liked(this.id)">
-                    {% if post.user_liked %}
-                        <img src="/static/heart-fill.svg">
-                    {% else %}
-                        <img src="/static/heart.svg">
-                    {% endif %}
-                </button>
+                <div class="badge badge-secondary like-count">
+                    <span id="{{post.post_id}}-count" class="like-count align-middle">{{post.likes}}</span>
+                    <button class="btn btn-link" id="{{post.post_id}}" class="btn" type="button" onclick="toggle_liked(this.id)">
+                        {% if post.user_liked %}
+                            <img src="/static/heart-fill.svg">
+                        {% else %}
+                            <img src="/static/heart.svg">
+                        {% endif %}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
