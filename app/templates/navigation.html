@@ -1,6 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 {% include "newpost.html" %}
+
+{% set home_active = "" %}
+{% set home_icon = "/static/home.svg" %}
+
+{% set profile_active = "" %}
+{% set profile_icon = "/static/person.svg" %}
+
+{% set settings_active = "" %}
+{% set settings_icon = "/static/gear.svg" %}
+
+{% if active == "home" %}
+    {% set home_active = "active" %}
+    {% set home_icon = "/static/home-fill.svg" %}
+{% elif active == "profile" %}
+    {% set profile_active = "active" %}
+    {% set profile_icon = "/static/person-fill.svg" %}
+{% else %}
+    {% set settings_active = "active" %}
+    {% set settings_icon = "/static/gear-fill.svg" %}
+{% endif %}
 <div class="container-fluid">
     <div class="row full-length">
         <div class="col-auto max-height-nav-sm full-width-sm centre-sm border-bottom border-right">
@@ -9,11 +29,12 @@
                     {% include "brand.html" %}
                     <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list" role="tablist"
                         aria-orientation="vertical">
+
                         <a class="nav-link navbar-item active" id="nav-btn-home" href="/"
                             aria-selected="true" aria-controls="home" role="tab">
                             <img src="/static/home-fill.svg">&nbsp;<span class="d-none d-sm-inline-block">Home</span>
                         </a>
-                        <a class="nav-link navbar-item" id="nav-btn-profile" href="/profile?{{ username }}"
+                        <a class="nav-link navbar-item" id="nav-btn-profile" href="/profile?user={{ user.username }}"
                             aria-selected="false" aria-controls="profile" role="tab">
                             <img src="/static/person.svg">&nbsp;<span class="d-none d-sm-inline-block">Profile</span>
                         </a>
