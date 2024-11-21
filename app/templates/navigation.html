@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "newpost.html" %}
+<div class="container-fluid">
+    <div class="row full-length">
+        <div class="col-auto max-height-nav-sm full-width-sm centre-sm border-bottom border-right">
+            <nav class="navbar navbar-light navbar-expand-sm px-0 flex-row flex-nowrap sticky">
+                <div class="nav flex-column flex-row">
+                    {% include "brand.html" %}
+                    <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list" role="tablist"
+                        aria-orientation="vertical">
+                        <a class="nav-link navbar-item active" id="nav-btn-home" href="/"
+                            aria-selected="true" aria-controls="home" role="tab">
+                            <img src="/static/home-fill.svg">&nbsp;<span class="d-none d-sm-inline-block">Home</span>
+                        </a>
+                        <a class="nav-link navbar-item" id="nav-btn-profile" href="/profile?{{ username }}"
+                            aria-selected="false" aria-controls="profile" role="tab">
+                            <img src="/static/person.svg">&nbsp;<span class="d-none d-sm-inline-block">Profile</span>
+                        </a>
+                        <a class="nav-link navbar-item" id="nav-btn-settings" href="/settings"
+                            aria-selected="false" aria-controls="settings" role="tab">
+                            <img src="/static/gear.svg">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
+                        </a>
+                        <button class="btn newpost-button" id="nav-btn-newpost" data-toggle="modal" data-target="#new-post" aria-controls="new-post", role="button">
+                            <img src="/static/plus-circle.svg">&nbsp;<span class="d-none d-sm-inline-block">New Post</span>
+                        </button>
+                        <button type="button" class="btn logout-button" onclick="location.href='/logout'">
+                            <img src="/static/logout.svg">&nbsp;<span class="d-none d-sm-inline-block">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="col py-2">
+            <div class="container">
+                <div class="tab-content" id="page-content">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home">
+                        {% block page_content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

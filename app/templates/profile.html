@@ -1,25 +1,41 @@
-<div class="card profile-card justify-content-center">
-    <div class="card-header">
-        <h2>Profile</h2>
-    </div>
-    <div class="card-body">
-        <div class="d-flex">
-            <img class="card-img img-thumbnail rounded-circle profile-pfp" src="/static/person.svg" alt="Profile Picture">
-            <div class="d-block">
-                <h3>James Kinley</h3>
-                <span class="align-middle">@jameskinley</span>
+{% extends "navigation.html" %}
+{% block page_content %}
+    <div class="card profile-card justify-content-center">
+        <div class="card-header">
+            <h2>Profile</h2>
+        </div>
+        <div class="card-body">
+            <div class="d-flex">
+                <img class="card-img img-thumbnail rounded-circle profile-pfp" src="/static/person.svg" alt="Profile Picture">
+                <div class="d-block">
+                    {% if user.name %}
+                        <h3>{{ user.name }}</h3>
+                        <span class="align-middle">@{{ user.username }}</span>
+                    {% else %}
+                        <h3>@{{ user.username}}</h3>
+                        <span class="align-middle"><a href="/settings">Add a name here!</a></span>
+                    {% endif %}
+                </div>
+            </div>
+            <div>
+                <p>
+                    {% if user.bio %}
+                        {{ user.bio }}
+                    {% else %}
+                        No bio yet! <a href="/settings">Why not add one!</a>
+                    {% endif %}
+                </p>
             </div>
         </div>
-        <div>
-            <p>This is a bio!</p>
+        <div class="card-footer">
+            <h3>Posts</h3>
+            {% if posts %}
+                {% for post in posts %}
+                    {% include "feed.html" %}
+                {% endfor %}
+            {% else %}
+                <span>Nothing to see here! Try posting something!</span>
+            {% endif %}
         </div>
     </div>
-    <div class="card-footer">
-        <h3>Posts</h3>
-        {% if track %}
-            {% include "feed.html" %}
-        {% else %}
-            <span>Nothing to see here! Try posting something!</span>
-        {% endif %}
-    </div>
-</div>
+{% endblock %}

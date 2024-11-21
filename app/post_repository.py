@@ -12,11 +12,15 @@ def add_post(user_id, track_id, description):
 
     db.session.commit()
 
-def get_posts(current_user_id):
-    post_raw =  Post.query.order_by(Post.post_id.desc())
+def get_posts(current_user_id, userfilter = None):
+
+    if userfilter == None:
+        post_raw =  Post.query.order_by(Post.post_id.desc())
+    else:
+        post_raw = Post.query.filter_by(user_id=userfilter).order_by(Post.post_id.desc())
+
     sp = SpotifyClient()
     posts = []
-
 
     for postr in post_raw:
         posts.append(PostModel(any(like.user_id == current_user_id for like in postr.likes), 

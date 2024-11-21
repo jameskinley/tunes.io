@@ -1,19 +1,23 @@
 from app import app, login_manager, admin, logging as logger
 from flask_admin.contrib.sqla import ModelView
-from flask_login import current_user, logout_user, login_user
+from flask_login import current_user, logout_user, login_user, login_required
 from os import path
 from flask import send_from_directory, render_template, redirect, request, json
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import *
 from .signup_form import SignupForm
-from .newpost_form import PostForm
+from .newpost_form import PostForm, post_form_handler
 from .spotify_client import SpotifyClient
-from .post_repository import add_post, get_posts, set_like
+from .post_repository import get_posts, set_like
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Post, db.session))
 admin.add_view(ModelView(Follow, db.session))
 admin.add_view(ModelView(Like, db.session))
+
+def login_guard():
+    if not current_user.is_authenticated:
+        return redirect('/login')
 
 """
 Serves the favicon request. 
@@ -24,6 +28,7 @@ def favicon():
     return send_from_directory(path.join(app.root_path, 'static'), 'favicon.ico')
 
 @app.route('/search', methods=['POST'])
+@login_required
 def search():
     search_query = request.json['query']
 
@@ -41,28 +46,45 @@ def search():
     return json.dumps(tracks)
 
 @app.route('/like', methods=['POST'])
+@login_required
 def like():
     set_like(current_user.user_id, request.json['post_id'], request.json['state'])
     return json.dumps({'status': 'OK'})
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if not current_user.is_authenticated:
-        return redirect('/login')
-    
+    login_guard()
     form = PostForm()
     
     if request.method == 'GET':
-        logger.debug("Getting posts.")
         return render_template("home.html", active="home", user=current_user, form=form, posts=get_posts(current_user.user_id))
     
-    if form.validate_on_submit():
-        logger.debug("Adding post.")
+    post_form_handler(form)
 
-        add_post(current_user.user_id, track_id=form.track_id.data, description=form.description.data)
-    else:
-        logger.debug("Form invalid.")
+    return redirect('/')
 
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    login_guard()
+
+    form = PostForm()
+
+    if request.method == 'GET':
+        user = load_user(current_user.user_id) #todo - make work for any user! Public & Private views
+        return render_template("profile.html", posts=get_posts(current_user.user_id, current_user.user_id), form=form, user=user)
+    
+    post_form_handler()
+    return redirect('/')
+
+@app.route('/settings')
+def settings():
+    login_guard()
+    form = PostForm()
+
+    if request.method == 'GET':
+        return render_template("settings.html", form=form)
+    
+    post_form_handler()
     return redirect('/')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -117,7 +139,13 @@ def signup():
         db.session.add(created_user)
         db.session.commit()
 
-        return redirect('/')
+        login_user(user)
+        return redirect('/newuser')
+    
+@app.route('/newuser')
+@login_required
+def newuser():
+    return redirect('/settings')
 
 @app.route('/logout')
 def logout():
@@ -127,6 +155,5 @@ def logout():
 
 @login_manager.user_loader
 def load_user(user_id):
-
     logger.debug(f"Attempting to load user with ID: {user_id}")
     return User.query.filter_by(user_id=user_id).first()
