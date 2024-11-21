@@ -2,23 +2,23 @@
 {% block content %}
 {% include "newpost.html" %}
 
-{% set home_active = "" %}
+{% set home_active = "false" %}
 {% set home_icon = "/static/home.svg" %}
 
-{% set profile_active = "" %}
+{% set profile_active = "false" %}
 {% set profile_icon = "/static/person.svg" %}
 
-{% set settings_active = "" %}
+{% set settings_active = "false" %}
 {% set settings_icon = "/static/gear.svg" %}
 
 {% if active == "home" %}
-    {% set home_active = "active" %}
+    {% set home_active = "true" %}
     {% set home_icon = "/static/home-fill.svg" %}
 {% elif active == "profile" %}
-    {% set profile_active = "active" %}
+    {% set profile_active = "true" %}
     {% set profile_icon = "/static/person-fill.svg" %}
 {% else %}
-    {% set settings_active = "active" %}
+    {% set settings_active = "true" %}
     {% set settings_icon = "/static/gear-fill.svg" %}
 {% endif %}
 <div class="container-fluid">
@@ -30,17 +30,17 @@
                     <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list" role="tablist"
                         aria-orientation="vertical">
 
-                        <a class="nav-link navbar-item active" id="nav-btn-home" href="/"
-                            aria-selected="true" aria-controls="home" role="tab">
-                            <img src="/static/home-fill.svg">&nbsp;<span class="d-none d-sm-inline-block">Home</span>
+                        <a class="nav-link navbar-item" id="nav-btn-home" href="/"
+                            aria-selected="{{ home_active }}" aria-controls="home" role="tab">
+                            <img src="{{ home_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Home</span>
                         </a>
                         <a class="nav-link navbar-item" id="nav-btn-profile" href="/profile?user={{ user.username }}"
-                            aria-selected="false" aria-controls="profile" role="tab">
-                            <img src="/static/person.svg">&nbsp;<span class="d-none d-sm-inline-block">Profile</span>
+                            aria-selected="{{ profile_active }}" aria-controls="profile" role="tab">
+                            <img src="{{ profile_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Profile</span>
                         </a>
                         <a class="nav-link navbar-item" id="nav-btn-settings" href="/settings"
-                            aria-selected="false" aria-controls="settings" role="tab">
-                            <img src="/static/gear.svg">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
+                            aria-selected="{{ settings_active }}" aria-controls="settings" role="tab">
+                            <img src="{{ settings_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
                         </a>
                         <button class="btn newpost-button" id="nav-btn-newpost" data-toggle="modal" data-target="#new-post" aria-controls="new-post", role="button">
                             <img src="/static/plus-circle.svg">&nbsp;<span class="d-none d-sm-inline-block">New Post</span>

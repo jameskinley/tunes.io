@@ -17,6 +17,7 @@ admin.add_view(ModelView(Like, db.session))
 
 def login_guard():
     if not current_user.is_authenticated:
+        logger.info("User is not authenticated. Redirecting to login.")
         return redirect('/login')
 
 """
@@ -53,7 +54,9 @@ def like():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    login_guard()
+    redir = login_guard()
+    if redir is not None: return redir
+
     form = PostForm()
     
     if request.method == 'GET':
@@ -65,7 +68,8 @@ def index():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    login_guard()
+    redir = login_guard()
+    if redir is not None: return redir
 
     form = PostForm()
 
@@ -78,7 +82,8 @@ def profile():
 
 @app.route('/settings')
 def settings():
-    login_guard()
+    redir = login_guard()
+    if redir is not None: return redir
     form = PostForm()
 
     if request.method == 'GET':
