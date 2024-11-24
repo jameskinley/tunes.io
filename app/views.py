@@ -64,7 +64,7 @@ def index():
     if request.method == 'GET':
         return render_template("home.html", active="home", user=current_user, form=form, posts=get_posts(current_user.user_id))
     
-    post_form_handler(form)
+    post_form_handler(form, current_user)
 
     return redirect('/')
 
@@ -77,7 +77,7 @@ def profile():
 
     if request.method == 'GET':
         username = request.args.get('user')
-        if username is '' or username is None:
+        if username == '' or username == None:
             return redirect('/')
         
         user = get_user_byusername(username)
@@ -95,7 +95,7 @@ def profile():
                                user=user, 
                                is_current_user=is_current_user)
     
-    post_form_handler()
+    post_form_handler(form, current_user)
     return redirect('/')
 
 @app.route('/settings', methods=['GET', 'POST'])
@@ -112,7 +112,7 @@ def settings():
                                user= load_user(current_user.user_id), 
                                settings_form=settings_form)
     
-    post_form_handler()
+    post_form_handler(form, current_user)
     return redirect('/')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -120,20 +120,21 @@ def login():
     form = SignupForm()
 
     if request.method == "GET":
-        return render_template("authform.html", authaction='/login', submitbtn_text='Login', form=form, errormessage="t")
+        return render_template("authform.html", authaction='/login', submitbtn_text='Login', form=form)
     
     username = str.lower(form.username.data)
     
     user = User.query.filter_by(username=username).first()
 
     if not user or not check_password_hash(user.password, form.password.data):
+        # Say incorrect login details regardless of whether account exists. This prevents bad actors from working out account names as easily.
         return render_template("authform.html", 
                                authaction='/login', 
                                submitbtn_text='Login', 
                                form=form, 
-                               errormessage="Incorrect login details. Please try again.")
+                               error_message="Incorrect login details. Please try again.")
     
-    login_user(user) #todo add remember functionality
+    login_user(user, form.remember.data)
     return redirect('/')
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -160,6 +161,9 @@ def signup():
 
         if user:
             return redirect('/signup?error="userexists"')
+        
+        if form.confirm_password.data != form.password.data:
+            return redirect('/signup?error="no"')
 
         created_user = User(username=username, 
                             password=generate_password_hash(form.password.data))
@@ -169,6 +173,8 @@ def signup():
 
         login_user(user)
         return redirect('/newuser')
+    
+    return render_template("authform.html", authaction="/signup", submitbtn_text="Sign up", form=form, error_message="Unable to create account. Please try again.")
     
 @app.route('/newuser')
 @login_required

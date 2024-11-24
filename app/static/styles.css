@@ -173,3 +173,7 @@ span.like-count {
     font-size: medium;
     font-weight: bold;
 }
+
+#new-post {
+    z-index: 1101;
+}
