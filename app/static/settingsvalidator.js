@@ -62,8 +62,7 @@ $(document).ready(function () {
  * For each field, applies it's validator function.
  */
 function validate_fields() {
-
-    invalid = false;
+    let invalid = false;
 
     fields.forEach(field => {
         if(field_validate(field)) 

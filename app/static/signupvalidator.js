@@ -1,4 +1,4 @@
-import { validatePassword, confirmPassword } from "./passwordvalidator.js";
+import { validatePassword } from "./passwordvalidator.js";
 
 /**
  * CODE ADAPTED FROM MY COURSEWORK ONE 'modal.js'
@@ -27,14 +27,20 @@ const fields = [
         invalid_message: "The passwords do not match.",
         validate: function () {
             let confirmValue = $(this.id).val();
+
+            if (confirmValue.length < 1) {
+                this.invalid_message = "Please confirm your password.";
+                return false;
+            }
+
+            this.invalid_message = "The passwords do not match.";
             let mainValue = $('#password').val();
-            return confirmPassword(mainValue, confirmValue);
+            return confirmValue != mainValue;
         }
     }
 ];
 
 $(document).ready(function () {
-
     if ($('#auth-form').attr('action') == '/signup') {
         fields.forEach(field => {
             $(field.id).keyup(function () {
@@ -54,8 +60,7 @@ $(document).ready(function () {
  * For each field, applies it's validator function.
  */
 function validate_fields() {
-
-    invalid = false;
+    let invalid = false;
 
     fields.forEach(field => {
         if (field_validate(field))

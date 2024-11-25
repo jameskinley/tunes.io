@@ -191,3 +191,7 @@ button.btn-notfollowing{
     background-color: blue;
     color: white;
 }
+
+#auth-submit {
+    margin-right: 1rem;
+}

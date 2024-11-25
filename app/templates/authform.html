@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if authaction == "/signup" %}
+    {% set submit_disabled = 'disabled' %}
+    {% set aria_disabled = 'true' %}
+{% else %}
+    {% set submit_disabled = '' %}
+    {% set aria_disabled = 'false' %}
+{% endif %}
+
 <div class="container">
     <div class="card justify-content-center">
         <div class="card-header">
@@ -34,7 +42,7 @@
                     {% endif %}
                 </p>
                 <div class="d-flex">
-                    <button id="auth-submit" type="submit" class="btn btn-primary">
+                    <button id="auth-submit" type="submit" class="btn btn-primary" {{ submit_disabled }} aria-disabled="{{ aria_disabled }}">
                         {{ submitbtn_text }}
                     </button>
                     <span class="aux-link">

@@ -15,7 +15,7 @@
                 <p>
                     {{ settings_form.name.label() }}
                     {{ settings_form.name(class='form-control', data_toggle='tooltip', title='Set a display name for your account.')}}
-                    <span class="invalid-feedback" id="name-error"></span>
+                    <span class="invalid-feedback" id="settings-name-error"></span>
                 </p>
                 <p>
                     {{ settings_form.password.label() }}
@@ -30,7 +30,7 @@
                 <p>
                     {{ settings_form.bio.label() }}
                     {{ settings_form.bio(class='form-control', data_toggle='tooltip', title='Tell everyone a little about yourself!')}}
-                    <span class="invalid-feedback" id="bio-error"></span>
+                    <span class="invalid-feedback" id="settings-bio-error"></span>
                 </p>
                 <div class="d-flex">
                     <button id="settings-submit" type="submit" class="btn btn-primary">

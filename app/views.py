@@ -148,7 +148,6 @@ def login():
         return render_template("authform.html", authaction='/login', submitbtn_text='Login', form=form)
     
     username = str.lower(form.username.data)
-    
     user = User.query.filter_by(username=username).first()
 
     if not user or not check_password_hash(user.password, form.password.data):
@@ -172,11 +171,13 @@ def signup():
     if request.method == "GET":
         error_type = request.args.get('error')
 
-        if not error_type:
+        if error_type == None or error_type == '':
             error_message = ""
-        elif str.find(error_type, "userexists"):
+        elif str.find(error_type, "userexists") != -1:
             error_message = 'Username already exists. Please try another.'
             print(f"check: {error_type}")
+        elif str.find(error_type, 'confirmpassword') != -1:
+            error_message = 'Please confirm your password.'
         elif error_type:
             error_message = 'An unexpected error occurred. Please try again.'
 
@@ -191,7 +192,7 @@ def signup():
             return redirect('/signup?error="userexists"')
         
         if form.confirm_password.data != form.password.data:
-            return redirect('/signup?error="no"')
+            return redirect('/signup?error="confirmpassword"')
 
         created_user = User(username=username, 
                             password=generate_password_hash(form.password.data))
@@ -199,7 +200,7 @@ def signup():
         db.session.add(created_user)
         db.session.commit()
 
-        login_user(user)
+        login_user(created_user)
         return redirect('/newuser')
     
     return render_template("authform.html", authaction="/signup", submitbtn_text="Sign up", form=form, error_message="Unable to create account. Please try again.")

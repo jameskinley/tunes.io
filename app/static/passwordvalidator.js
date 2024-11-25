@@ -1,8 +1,8 @@
 export function validatePassword(value){
     let errors = "";
 
-    if(value.length < 8) {
-        errors += "&#8226; Must be at least 8 characters.<br>";
+    if(value.length < 10) {
+        errors += "&#8226; Must be at least 10 characters.<br>";
     }
 
     if(!value.match(/[A-Z]{1,}/)) {
