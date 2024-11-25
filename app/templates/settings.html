@@ -19,17 +19,17 @@
                 </p>
                 <p>
                     {{ settings_form.password.label() }}
-                    {{ settings_form.password(class='form-control')}}
+                    {{ settings_form.password(class='form-control', data_toggle='tooltip', title='Change your password.')}}
                     <p class="invalid-feedback" id="settings-password-error"></p>
                 </p>
                 <p>
                     {{ settings_form.confirmpassword.label() }}
-                    {{ settings_form.confirmpassword(class='form-control')}}
+                    {{ settings_form.confirmpassword(class='form-control', data_toggle='tooltip', title='Confirm your new password.')}}
                     <span class="invalid-feedback" id="settings-confirmpassword-error"></span>
                 </p>
                 <p>
                     {{ settings_form.bio.label() }}
-                    {{ settings_form.bio(class='form-control')}}
+                    {{ settings_form.bio(class='form-control', data_toggle='tooltip', title='Tell everyone a little about yourself!')}}
                     <span class="invalid-feedback" id="bio-error"></span>
                 </p>
                 <div class="d-flex">

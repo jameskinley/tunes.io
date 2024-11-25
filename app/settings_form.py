@@ -9,8 +9,8 @@ class SettingsForm(FlaskForm):
 
     username = StringField("Username")
     
-    password = PasswordField(label="Password") #todo- custom validator
-    confirmpassword = PasswordField(label="Confirm Password") #todo- custom validator
+    password = PasswordField(label="Password")
+    confirmpassword = PasswordField(label="Confirm Password")
 
     name = StringField("Name", validators=[Length(max=50)])
     bio = TextAreaField("Bio", validators=[Length(max=1000)])

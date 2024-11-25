@@ -1,4 +1,4 @@
-import { validatePassword } from "./passwordvalidator.js";
+import { validatePassword, confirmPassword } from "./passwordvalidator.js";
 
 /**
  * CODE ADAPTED FROM MY COURSEWORK ONE 'modal.js'
@@ -9,12 +9,12 @@ import { validatePassword } from "./passwordvalidator.js";
  */
 const fields = [
     {
-        id: '#name',
+        id: '#settings-name',
         invalid_message: 'Name cannot be longer than 50 characters.',
         validate: function () {  let value = $(this.id).val(); return value.length >= 50; }
     },
     {
-        id: '#bio',
+        id: '#settings-bio',
         invalid_message: 'Bio cannot be longer than 1000 characters.',
         validate: function() { return $(this.id).val().length >= 1000; }
     },
@@ -30,6 +30,15 @@ const fields = [
 
             this.invalid_message = validatePassword(value);
             return this.invalid_message.length > 0;
+        }
+    },
+    {
+        id: '#settings-confirmpassword',
+        invalid_message: "The passwords do not match.",
+        validate: function() {
+            let confirmValue = $(this.id).val();
+            let mainValue = $('#settings-password').val();
+            return confirmPassword(mainValue, confirmValue);
         }
     }
 ];
