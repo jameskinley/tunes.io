@@ -45,22 +45,31 @@ function populate_results(response) {
     $('#search-results').show();
 }
 
+function search_request(query) {
+    $.ajax({
+        type: "POST",
+        url: "/search",
+        data: JSON.stringify({
+            query: query
+        }),
+        contentType: "application/json; charset=utf-8;",
+        dataType: "json",
+        success: function(response) {
+            console.log(`Got the following tracks: ${response}`);
+            populate_results(response);
+        }
+    });
+}
+
 $(document).ready(function() {
     $('#search-input-submit').click(function() {
         let query = $('#search-input').val();
-        $.ajax({
-            type: "POST",
-            url: "/search",
-            data: JSON.stringify({
-                query: query
-            }),
-            contentType: "application/json; charset=utf-8;",
-            dataType: "json",
-            success: function(response) {
-                console.log(`Got the following tracks: ${response}`);
-                populate_results(response);
-            }
-        });
+        search_request(query);
+    });
+
+    $('#search-input').keyup(function() {
+        let query = $('#search-input').val();
+        search_request(query);
     });
 
     //Close when we click off
