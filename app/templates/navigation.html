@@ -30,22 +30,22 @@
                     <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list" role="tablist"
                         aria-orientation="vertical">
 
-                        <a class="nav-link navbar-item" id="nav-btn-home" href="/"
+                        <a class="nav-link navbar-item" id="nav-btn-home" data-toggle="tooltip" title="View the main feed" href="/"
                             aria-selected="{{ home_active }}" aria-controls="home" role="tab">
                             <img src="{{ home_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Home</span>
                         </a>
-                        <a class="nav-link navbar-item" id="nav-btn-profile" href="/profile?user={{ user.username }}"
+                        <a class="nav-link navbar-item" data-toggle="tooltip" title="View your profile" id="nav-btn-profile" href="/profile?user={{ user.username }}"
                             aria-selected="{{ profile_active }}" aria-controls="profile" role="tab">
                             <img src="{{ profile_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Profile</span>
                         </a>
-                        <a class="nav-link navbar-item" id="nav-btn-settings" href="/settings"
+                        <a class="nav-link navbar-item" id="nav-btn-settings"data-toggle="tooltip" title="Change account settings." href="/settings"
                             aria-selected="{{ settings_active }}" aria-controls="settings" role="tab">
                             <img src="{{ settings_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
                         </a>
                         <button class="btn newpost-button" id="nav-btn-newpost" data-toggle="modal" data-target="#new-post" aria-controls="new-post", role="button">
                             <img src="/static/plus-circle.svg">&nbsp;<span class="d-none d-sm-inline-block">New Post</span>
                         </button>
-                        <button type="button" class="btn logout-button" onclick="location.href='/logout'">
+                        <button type="button" class="btn logout-button" data-toggle="tooltip" title="Logout from tunes.io" onclick="location.href='/logout'">
                             <img src="/static/logout.svg">&nbsp;<span class="d-none d-sm-inline-block">Logout</span>
                         </button>
                     </div>

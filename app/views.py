@@ -21,6 +21,11 @@ def login_guard():
     if not current_user.is_authenticated:
         logger.info("User is not authenticated. Redirecting to login.")
         return redirect('/login')
+    
+def inverse_login_guard():
+    if current_user.is_authenticated:
+        logger.info("User is already authenticated. Loading home page.")
+        return redirect('/')
 
 """
 Serves the favicon request. 
@@ -117,6 +122,9 @@ def settings():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    redir = inverse_login_guard()
+    if redir is not None: return redir
+
     form = SignupForm()
 
     if request.method == "GET":
@@ -139,6 +147,9 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    redir = inverse_login_guard()
+    if redir is not None: return redir
+
     form = SignupForm()
 
     if request.method == "GET":

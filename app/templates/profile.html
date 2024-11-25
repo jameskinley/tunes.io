@@ -22,6 +22,12 @@
             </div>
             <div>
                 <p>
+                    <strong>Followers</strong> {{ user.followers.count() }}
+                    <strong>Following</strong> {{ user.following|length }}
+                </p>
+            </div>
+            <div>
+                <p>
                     {% if user.bio %}
                         {{ user.bio }}
                     {% else %}
