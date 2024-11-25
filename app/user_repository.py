@@ -24,7 +24,7 @@ def update_user(user_id, name, password, confirm_password, bio):
         user.bio = bio
 
     if confirm_password != password:
-        logger.error("Unable to update user passowrd. Passwords did not match.")
+        logger.error("Unable to update user password. Passwords did not match.")
         return False
     elif password != None and confirm_password != None and password != "" and confirm_password != "":
         logger.debug("Updating user password")
