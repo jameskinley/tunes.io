@@ -12,40 +12,46 @@
 {% set settings_icon = "/static/gear.svg" %}
 
 {% if active == "home" %}
-    {% set home_active = "true" %}
-    {% set home_icon = "/static/home-fill.svg" %}
+{% set home_active = "true" %}
+{% set home_icon = "/static/home-fill.svg" %}
 {% elif active == "profile" %}
-    {% set profile_active = "true" %}
-    {% set profile_icon = "/static/person-fill.svg" %}
+{% set profile_active = "true" %}
+{% set profile_icon = "/static/person-fill.svg" %}
 {% else %}
-    {% set settings_active = "true" %}
-    {% set settings_icon = "/static/gear-fill.svg" %}
+{% set settings_active = "true" %}
+{% set settings_icon = "/static/gear-fill.svg" %}
 {% endif %}
 <div class="container-fluid">
     <div class="row full-length">
-        <div class="col-auto max-height-nav-sm full-width-sm centre-sm">
-            <nav class="navbar navbar-light navbar-sticky navbar-expand-sm px-0 flex-row flex-nowrap">
+        <div class="col-sm-auto max-height-nav-sm full-width-sm centre-sm">
+            <nav class="navbar navbar-light navbar-sticky navbar-expand-sm px-0 flex-row">
                 <div class="nav flex-column">
                     {% include "brand.html" %}
-                    <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list" role="tablist"
-                        aria-orientation="vertical">
+                    <div class="nav d-sm-inline-block d-sm-flex flex-sm-column nav-pills" id="nav-btn-list"
+                        role="tablist" aria-orientation="vertical">
 
-                        <a class="nav-link navbar-item" id="nav-btn-home" data-toggle="tooltip" title="View the main feed" href="/"
-                            aria-selected="{{ home_active }}" aria-controls="home" role="tab">
+                        <a class="nav-link navbar-item" id="nav-btn-home" data-toggle="tooltip"
+                            title="View the main feed" href="/" aria-selected="{{ home_active }}" aria-controls="home"
+                            role="tab">
                             <img src="{{ home_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Home</span>
                         </a>
-                        <a class="nav-link navbar-item" data-toggle="tooltip" title="View your profile" id="nav-btn-profile" href="/profile?user={{ user.username }}"
+                        <a class="nav-link navbar-item" data-toggle="tooltip" title="View your profile"
+                            id="nav-btn-profile" href="/profile?user={{ user.username }}"
                             aria-selected="{{ profile_active }}" aria-controls="profile" role="tab">
                             <img src="{{ profile_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Profile</span>
                         </a>
-                        <a class="nav-link navbar-item" id="nav-btn-settings"data-toggle="tooltip" title="Change account settings." href="/settings"
-                            aria-selected="{{ settings_active }}" aria-controls="settings" role="tab">
+                        <a class="nav-link navbar-item" id="nav-btn-settings" data-toggle="tooltip"
+                            title="Change account settings." href="/settings" aria-selected="{{ settings_active }}"
+                            aria-controls="settings" role="tab">
                             <img src="{{ settings_icon }}">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
                         </a>
-                        <button class="btn newpost-button" id="nav-btn-newpost" data-toggle="modal" data-target="#new-post" aria-controls="new-post", role="button">
-                            <img src="/static/plus-circle.svg">&nbsp;<span class="d-none d-sm-inline-block">New Post</span>
+                        <button class="btn newpost-button" id="nav-btn-newpost" data-toggle="modal"
+                            data-target="#new-post" aria-controls="new-post" , role="button">
+                            <img src="/static/plus-circle.svg">&nbsp;<span class="d-none d-sm-inline-block">New
+                                Post</span>
                         </button>
-                        <button type="button" class="btn logout-button" data-toggle="tooltip" title="Logout from tunes.io" onclick="location.href='/logout'">
+                        <button type="button" class="btn logout-button" data-toggle="tooltip"
+                            title="Logout from tunes.io" onclick="location.href='/logout'">
                             <img src="/static/logout.svg">&nbsp;<span class="d-none d-sm-inline-block">Logout</span>
                         </button>
                     </div>
@@ -54,12 +60,8 @@
         </div>
         <div class="col py-2 content-margin border-left">
             <div class="container">
-                <div class="tab-content" id="page-content">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home">
-                        {% block page_content %}
-                        {% endblock %}
-                    </div>
-                </div>
+                {% block page_content %}
+                {% endblock %}
             </div>
         </div>
     </div>
