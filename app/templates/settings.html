@@ -6,7 +6,7 @@
             <h2>Settings</h2>
         </div>
         <div class="card-body">
-            <form action="/settings", method="POST", name="Settings Form">
+            <form id="settings-form" action="/settings", method="POST", name="Settings Form">
                 {{ settings_form.hidden_tag() }}
                 <p>
                     {{ settings_form.username.label() }}
@@ -15,25 +15,25 @@
                 <p>
                     {{ settings_form.name.label() }}
                     {{ settings_form.name(class='form-control', data_toggle='tooltip', title='Set a display name for your account.')}}
-                    <span class="invalid-feedback" id="title-error"></span>
+                    <span class="invalid-feedback" id="name-error"></span>
                 </p>
                 <p>
                     {{ settings_form.password.label() }}
                     {{ settings_form.password(class='form-control')}}
-                    <span class="invalid-feedback" id="title-error"></span>
+                    <span class="invalid-feedback" id="password-error"></span>
                 </p>
                 <p>
                     {{ settings_form.confirmpassword.label() }}
                     {{ settings_form.confirmpassword(class='form-control')}}
-                    <span class="invalid-feedback" id="title-error"></span>
+                    <span class="invalid-feedback" id="confirmpassword-error"></span>
                 </p>
                 <p>
                     {{ settings_form.bio.label() }}
                     {{ settings_form.bio(class='form-control')}}
-                    <span class="invalid-feedback" id="title-error"></span>
+                    <span class="invalid-feedback" id="bio-error"></span>
                 </p>
                 <div class="d-flex">
-                    <button type="submit" class="btn btn-primary">
+                    <button id="settings-submit" type="submit" class="btn btn-primary">
                         Save Changes
                     </button>
                 </div>

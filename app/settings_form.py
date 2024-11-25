@@ -12,7 +12,7 @@ class SettingsForm(FlaskForm):
     password = PasswordField("Password") #todo- custom validator
     confirmpassword = PasswordField("Confirm Password") #todo- custom validator
 
-    name = StringField("Name")
+    name = StringField("Name", validators=[Length(max=50)])
     bio = TextAreaField("Bio", validators=[Length(max=1000)])
 
     def SetUserDefaults(self, user):
