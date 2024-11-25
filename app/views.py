@@ -119,8 +119,9 @@ def profile():
 def settings():
     redir = login_guard()
     if redir is not None: return redir
-    form = PostForm()
-    settings_form = SettingsForm()
+
+    form = PostForm(prefix='post')
+    settings_form = SettingsForm(prefix='settings')
 
     if request.method == 'GET':
         settings_form.SetUserDefaults(current_user)

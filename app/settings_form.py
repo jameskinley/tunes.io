@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.form import _Auto
 from wtforms import StringField, TextAreaField, PasswordField
-from wtforms.validators import Length, ReadOnly
+from wtforms.validators import Length
 from app import logging as logger
 from .user_repository import update_user
 
@@ -9,8 +9,8 @@ class SettingsForm(FlaskForm):
 
     username = StringField("Username")
     
-    password = PasswordField("Password") #todo- custom validator
-    confirmpassword = PasswordField("Confirm Password") #todo- custom validator
+    password = PasswordField(label="Password") #todo- custom validator
+    confirmpassword = PasswordField(label="Confirm Password") #todo- custom validator
 
     name = StringField("Name", validators=[Length(max=50)])
     bio = TextAreaField("Bio", validators=[Length(max=1000)])
