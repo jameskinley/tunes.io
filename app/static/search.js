@@ -26,6 +26,9 @@ function set_song(id) {
 
 function get_html(response) {
     let html = '';
+    if (response == "{}") {
+        return '';
+    }
     response.forEach(track => {
         html += `
             <a id="${track.track_external_id}" class="d-flex border search-panel" onclick="set_song(this.id)">

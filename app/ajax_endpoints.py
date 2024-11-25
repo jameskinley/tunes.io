@@ -18,7 +18,7 @@ def follow():
 def search():
     search_query = request.json['query']
 
-    if search_query == None or '':
+    if search_query == None or search_query == '' or search_query.isspace():
         return "{}"
     
     logger.debug(f"Searching Spotify with query: '{search_query}'")
