@@ -9,7 +9,7 @@
                 <img class="card-img img-thumbnail album-card-img margin-centre" src="{{post.track.artwork}}", alt="Album Cover" >
             </div>
             <div class="col">
-                <h5>{{post.title}}</h5>
+                <h5><a class="profile-link" href="{{post.track.url}}">{{post.track.title}}</a></h5>
                 <h6 class="font-weight-bold">{{post.track.album}} &#x2022; {{post.track.artist}}</h6>
                 <p class="font-weight-light">
                     {{ post.description }}

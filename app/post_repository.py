@@ -23,8 +23,10 @@ def get_posts(current_user_id, userfilter = None):
     posts = []
 
     for postr in post_raw:
+        track = sp.get_track(postr.track_id)
+        logger.debug(f"Got track: {track.to_dict()}")
         posts.append(PostModel(any(like.user_id == current_user_id for like in postr.likes), 
-                               postr.post_id, sp.get_track(postr.track_id), 
+                               postr.post_id, track, 
                                postr.user.username, 
                                postr.likes.count(), 
                                postr.description))

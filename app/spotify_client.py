@@ -26,11 +26,15 @@ class SpotifyClient:
         tracks = []
         track_list = result['tracks']['items']
 
-        logger.debug(f"Returned {len(track_list)} tracks.")
-
         for track in track_list:
-            tracks.append(Track(album=track['album']['name'], title=track['name'], artist=track['artists'][0]['name'], track_id=track['id'], artwork=track['album']['images'][1]['url']))
-
+            tracks.append(Track(track['id'],
+                                track['name'],
+                                track['artists'][0]['name'],
+                                track['album']['name'],
+                                track['album']['images'][1]['url'],
+                                track['external_urls']['spotify']))
+            
+        logger.debug(f"Query returned {len(track)} tracks.")
         return tracks
     
     """
@@ -38,4 +42,9 @@ class SpotifyClient:
     """
     def get_track(self, track_id):
         track = self.__spotify_client__.track(track_id)
-        return Track(album=track['album']['name'], title=track['name'], artist=track['artists'][0]['name'], track_id=track['id'], artwork=track['album']['images'][1]['url'])
+        return Track(track_id=track['id'],
+                     title=track['name'],
+                     artist=track['artists'][0]['name'],
+                     album=track['album']['name'],
+                     artwork=track['album']['images'][1]['url'],
+                     url=track['external_urls']['spotify'])
