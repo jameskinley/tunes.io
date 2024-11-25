@@ -9,6 +9,17 @@ import { validatePassword } from "./passwordvalidator.js";
  */
 const fields = [
     {
+        id: '#username',
+        invalid_message: 'Username must be less than 50 characters.',
+        validate: function() {
+            let value = $(this.id).val();
+            if (value.length >= 50) {
+                return true;
+            }
+            return false;
+        }
+    },
+    {
         id: '#password',
         invalid_message: 'placeholder',
         validate: function () {

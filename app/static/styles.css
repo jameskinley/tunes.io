@@ -4,6 +4,7 @@ body {
 
 .username-text {
     font-size: calc(1rem + 1vw);
+    text-overflow: clip !important;
 }
 
 a.navbar-item {

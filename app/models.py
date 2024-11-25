@@ -7,9 +7,9 @@ Used to store spotify track IDs for posts.
 class User(UserMixin, db.Model):
 
     user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True, index=True)
-    password = db.Column(db.String(100))
-    name = db.Column(db.String(200))
+    username = db.Column(db.String(50), unique=True, index=True)
+    password = db.Column(db.String(50))
+    name = db.Column(db.String(30))
     bio = db.Column(db.String(1000))
     posts = db.relationship('Post', backref='user', lazy='dynamic')
     likes = db.relationship('Like', backref='user', lazy='dynamic')

@@ -6,6 +6,8 @@ from .track import Track
 
 """
 Leverages the spotify API to get information about tracks.
+Uses the Spotipy library: https://spotipy.readthedocs.io/en/2.24.0/
+Spotify API documentation: https://developer.spotify.com/documentation/web-api
 """
 class SpotifyClient:
 

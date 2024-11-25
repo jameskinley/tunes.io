@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="d-flex">
                 <img class="card-img img-thumbnail rounded-circle profile-pfp" src="/static/person.svg" alt="Profile Picture">
-                <div class="d-block">
+                <div class="d-block text-truncate">
                     {% if user.name %}
                         <h3 class="username-text">{{ user.name }}</h3>
                         <span class="align-middle">@{{ user.username }}</span>

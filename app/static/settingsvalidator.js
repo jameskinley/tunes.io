@@ -11,7 +11,7 @@ const fields = [
     {
         id: '#settings-name',
         invalid_message: 'Name cannot be longer than 50 characters.',
-        validate: function () {  let value = $(this.id).val(); return value.length >= 50; }
+        validate: function () {  let value = $(this.id).val(); return value.length >= 30; }
     },
     {
         id: '#settings-bio',
