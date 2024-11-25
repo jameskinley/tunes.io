@@ -10,31 +10,31 @@
             <h2>
                 {{ submitbtn_text }}
             </h2>
-            <form action="{{ authaction }}", method="POST", name="Signup Form">
+            <form id="auth-form" action="{{ authaction }}", method="POST", name="Signup Form">
                 {{ form.hidden_tag() }}
                 <p>
                     {{ form.username.label() }}
                     {{ form.username(class='form-control')}}
-                    <span class="invalid-feedback" id="title-error">
+                    <span class="invalid-feedback" id="username-error">
                     </span>
                 </p>
                 <p>
                     {{ form.password.label() }}
                     {{ form.password(class='form-control')}}
-                    <span class="invalid-feedback" id="title-error"></span>
+                    <span class="invalid-feedback" id="password-error"></span>
                 </p>
                 <p>
                     {% if authaction == "/signup" %}
                         {{ form.confirm_password.label() }}
                         {{ form.confirm_password(class='form-control')}}
-                        <span class="invalid-feedback" id="title-error"></span>
+                        <span class="invalid-feedback" id="confirm_password-error"></span>
                     {% else %}
                         {{ form.remember }}
                         {{ form.remember.label() }}
                     {% endif %}
                 </p>
                 <div class="d-flex">
-                    <button type="submit" class="btn btn-primary">
+                    <button id="auth-submit" type="submit" class="btn btn-primary">
                         {{ submitbtn_text }}
                     </button>
                     <span class="aux-link">

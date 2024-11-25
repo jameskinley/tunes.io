@@ -21,7 +21,6 @@ export function validatePassword(value){
 }
 
 export function confirmPassword(original, confirm){
-    console.log(`value one: ${original}, value two: ${confirm}`)
     if(original.length < 1 || confirm.length < 1) {
         return false;
     } 
