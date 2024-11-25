@@ -121,16 +121,20 @@ def settings():
     if redir is not None: return redir
     form = PostForm()
     settings_form = SettingsForm()
-    settings_form.SetUserDefaults(current_user)
 
     if request.method == 'GET':
+        settings_form.SetUserDefaults(current_user)
         return render_template("settings.html", 
                                form=form, 
                                user= load_user(current_user.user_id), 
                                settings_form=settings_form)
     
-    post_form_handler(form, current_user)
-    return redirect('/')
+    if form.track_id.data:
+        post_form_handler(form, current_user)
+        return redirect('/')
+    
+    settings_form.Handler(current_user)
+    return redirect('/settings')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

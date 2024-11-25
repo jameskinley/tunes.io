@@ -1,19 +1,19 @@
 from flask_wtf import FlaskForm
 from flask_wtf.form import _Auto
 from wtforms import StringField, TextAreaField, PasswordField
-from wtforms.validators import Length, ReadOnly, Optional
+from wtforms.validators import Length, ReadOnly
 from app import logging as logger
-from .post_repository import add_post
+from .user_repository import update_user
 
 class SettingsForm(FlaskForm):
 
-    username = StringField("Username", validators=[ReadOnly()])
+    username = StringField("Username")
     
-    password = PasswordField("Password", validators=[]) #todo- custom validator
-    confirmpassword = PasswordField("Confirm Password", validators=[]) #todo- custom validator
+    password = PasswordField("Password") #todo- custom validator
+    confirmpassword = PasswordField("Confirm Password") #todo- custom validator
 
-    name = StringField("Name", validators=[Optional()])
-    bio = TextAreaField("Bio", validators=[Optional(), Length(max=1000)])
+    name = StringField("Name")
+    bio = TextAreaField("Bio", validators=[Length(max=1000)])
 
     def SetUserDefaults(self, user):
         self.username.data = f"@{user.username}"
@@ -22,4 +22,16 @@ class SettingsForm(FlaskForm):
 
     def Handler(self, current_user):
         if self.validate_on_submit():
+            if not update_user(current_user.user_id, 
+                        self.name.data, 
+                        self.password.data, 
+                        self.confirmpassword.data, 
+                        self.bio.data):
+                logger.error(f"Unable to update settings for user {current_user.user_id}")
+                return False
+            
             logger.debug("Saving Settings")
+            return True
+        
+        logger.error(f"Unable to update settings for user {current_user.user_id}, the form was invalid.")
+        return False

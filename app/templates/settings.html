@@ -10,7 +10,7 @@
                 {{ settings_form.hidden_tag() }}
                 <p>
                     {{ settings_form.username.label() }}
-                    {{ settings_form.username(class='form-control', data_toggle='tooltip', title='Username cannot be changed following account creation.')}}
+                    {{ settings_form.username(readonly='true', class='form-control', data_toggle='tooltip', title='Username cannot be changed following account creation.')}}
                 </p>
                 <p>
                     {{ settings_form.name.label() }}
