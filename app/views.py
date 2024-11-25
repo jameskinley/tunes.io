@@ -4,11 +4,14 @@ from os import path
 from flask import send_from_directory, render_template, redirect, request
 
 from .models import *
-from .newpost_form import PostForm, post_form_handler
+from .newpost_form import PostForm
 from .settings_form import SettingsForm
 from .post_repository import get_posts
 from .user_repository import get_user_byid, is_following, get_user_byusername
 
+"""
+Guards pages that require login by redirecting unauthenticated users to the login page.
+"""
 def login_guard():
     if not current_user.is_authenticated:
         logger.info("User is not authenticated. Redirecting to login.")
@@ -22,6 +25,9 @@ Code adapted from https://flask.palletsprojects.com/en/stable/patterns/favicon/
 def favicon():
     return send_from_directory(path.join(app.root_path, 'static'), 'favicon.ico')
 
+"""
+Main page endpoint. Shows the feed of posts.
+"""
 @app.route('/', methods=['GET', 'POST'])
 def index():
     redir = login_guard()
@@ -32,10 +38,13 @@ def index():
     if request.method == 'GET':
         return render_template("home.html", active="home", user=current_user, form=form, posts=get_posts(current_user.user_id))
     
-    post_form_handler(form, current_user)
+    form.Handler(current_user)
 
     return redirect('/')
 
+"""
+Profile endpoint. Shows the profile of a given user.
+"""
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     redir = login_guard()
@@ -68,9 +77,12 @@ def profile():
                                is_current_user=is_current_user,
                                following=following)
     
-    post_form_handler(form, current_user)
+    form.handler(current_user)
     return redirect('/')
 
+"""
+Settings endpoint. Gets / changes the settings of the user.
+"""
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
     redir = login_guard()
@@ -87,7 +99,7 @@ def settings():
                                settings_form=settings_form)
     
     if form.track_id.data:
-        post_form_handler(form, current_user)
+        form.handler(current_user)
         return redirect('/')
     
     settings_form.Handler(current_user)

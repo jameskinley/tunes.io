@@ -4,12 +4,21 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from config import SPOTIFY_API_ID, SPOTIFY_API_SECRET, SPOTIFY_LOCALE
 from .track import Track
 
+"""
+Leverages the spotify API to get information about tracks.
+"""
 class SpotifyClient:
 
+    """
+    Initialises the class.
+    """
     def __init__(self):
         cred_manager = SpotifyClientCredentials(client_id=SPOTIFY_API_ID, client_secret=SPOTIFY_API_SECRET)
         self.__spotify_client__ = spotipy.Spotify(client_credentials_manager=cred_manager)
     
+    """
+    Searches the Spotify track database for the given query.
+    """
     def search(self, query):
         logger.debug(f"Fetching tracks from Spotify API for query: '{query}'")
         result = self.__spotify_client__.search(q=query, limit=5, market=SPOTIFY_LOCALE)
@@ -24,6 +33,9 @@ class SpotifyClient:
 
         return tracks
     
+    """
+    Gets the track with the given track_id.
+    """
     def get_track(self, track_id):
         track = self.__spotify_client__.track(track_id)
         return Track(album=track['album']['name'], title=track['name'], artist=track['artists'][0]['name'], track_id=track['id'], artwork=track['album']['images'][1]['url'])

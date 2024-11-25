@@ -2,6 +2,9 @@
 DTO For storing track search results.
 """
 class Track:
+    """
+    Initialises the track DTO.
+    """
     def __init__(self, track_id, title, artist, album, artwork):
         self.track_external_id = track_id
         self.title = title
@@ -9,6 +12,9 @@ class Track:
         self.album = album
         self.artwork = artwork
 
+    """
+    Converts the track to a dictionary format.
+    """
     def to_dict(self): 
         return { 
             'track_external_id': self.track_external_id, 
