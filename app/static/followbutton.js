@@ -1,38 +1,47 @@
-function set_follow(btn_id, state, username_source, username_dest) {
-
-    let follow_count = $(`#${username}-count`);
+function toggle_following(username) {
+    let state = get_follow_state();
+    let follow_count = $('#follow-count');
 
     $.ajax({
         type: "POST",
         url: "/follow",
         data: JSON.stringify({
-            post_id: id,
-            state: state
+            username: username,
+            state: !state
         }),
         contentType: "application/json; charset=utf-8;",
         dataType: "json",
         success: function() {
-            console.log(`Set following user '${username}' to ${state}`);
-            if(state == 1){
+            console.log(`Set following user '${username}' to ${!state}`);
+            if(state == 0){
                 follow_count.text(Number(follow_count.text()) + 1);
+                toggle_button_style(state);
                 return;
             }
             follow_count.text(Number(follow_count.text()) - 1);
+            toggle_button_style(state)
         }
     });
 }
 
-function is_liked(element) {
-    return element.attr("src") == "/static/heart.svg";
+function get_follow_state() {
+    if ($('#follow-btn').hasClass("btn-following")){
+        return 1;
+    }
+    return 0;
 }
 
-function toggle_liked(id) {
-    let element = $(`#${id}`).find("img");
+function toggle_button_style(state) {
+    btn = $('#follow-btn');
 
-    if(is_liked(element)){
-        set_like(id, 1, element);
+    if (state==0) {
+        btn.text("Following");
+        btn.removeClass("btn-notfollowing");
+        btn.addClass("btn-following");
         return;
     }
 
-    set_like(id, 0, element);
+    btn.text("Follow");
+    btn.removeClass("btn-following");
+    btn.addClass("btn-notfollowing");
 }

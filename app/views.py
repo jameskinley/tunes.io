@@ -10,7 +10,7 @@ from .newpost_form import PostForm, post_form_handler
 from .settings_form import SettingsForm
 from .spotify_client import SpotifyClient
 from .post_repository import get_posts, set_like
-from .user_repository import get_user_byid, get_user_byusername
+from .user_repository import *
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Post, db.session))
@@ -73,6 +73,13 @@ def index():
 
     return redirect('/')
 
+@app.route('/follow', methods=['POST'])
+@login_required
+def follow():
+    if set_follow(current_user.user_id, request.json['username'], request.json['state']):
+        return json.dumps({'status': 'OK'})
+    return json.dumps({'status': 'ERROR'})
+
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     redir = login_guard()
@@ -91,14 +98,19 @@ def profile():
             return redirect('/')
         
         is_current_user = False
+        following = False
+
         if user.user_id == current_user.user_id:
             is_current_user = True
+        else:
+            following = is_following(current_user.user_id, user.user_id)
 
         return render_template("profile.html", 
                                posts=get_posts(current_user.user_id, user.user_id), 
                                form=form, 
                                user=user, 
-                               is_current_user=is_current_user)
+                               is_current_user=is_current_user,
+                               following=following)
     
     post_form_handler(form, current_user)
     return redirect('/')

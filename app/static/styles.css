@@ -177,3 +177,17 @@ span.like-count {
 #new-post {
     z-index: 1101;
 }
+
+button.follow-btn{
+    width: 6rem;
+    font-weight: bold;
+}
+
+button.btn-following{
+    background-color: lightgray;
+}
+
+button.btn-notfollowing{
+    background-color: blue;
+    color: white;
+}

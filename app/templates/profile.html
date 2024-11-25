@@ -22,9 +22,17 @@
             </div>
             <div>
                 <p>
-                    <strong>Followers</strong> {{ user.followers.count() }}
+                    <strong>Followers</strong>
+                    <span id="follow-count">
+                        {{ user.followers.count() }}
+                    </span>
                     <strong>Following</strong> {{ user.following|length }}
                 </p>
+                <div>
+                    {% if not is_current_user %}
+                        {% include "follow_button.html" %}
+                    {% endif %}
+                </div>
             </div>
             <div>
                 <p>

@@ -1,3 +1,11 @@
-<button id="follow-{{ user.username }}" onclick="follow(this)">
-    Follow
+{% if following == true %}
+    {% set btn_class = "btn-following" %}
+    {% set btn_text = "Following" %}
+{% else %}
+    {% set btn_class = "btn-notfollowing" %}
+    {% set btn_text = "Follow" %}
+{% endif %}
+
+<button id="follow-btn"  class="btn follow-btn {{ btn_class }}" onclick="toggle_following('{{user.username}}')">
+    {{ btn_text }}
 </button>
