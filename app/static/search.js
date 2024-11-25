@@ -26,8 +26,8 @@ function set_song(id) {
 
 function get_html(response) {
     let html = '';
-    if (response == "{}") {
-        return '';
+    if (jQuery.isEmptyObject(response)) {
+        return null;
     }
     response.forEach(track => {
         html += `
@@ -44,7 +44,12 @@ function get_html(response) {
 
 function populate_results(response) {
     tracks = response;
-    $('#search-results').html(get_html(response))
+    let html = get_html(response);
+    if(html === null){
+        return;
+    }
+
+    $('#search-results').html(html)
     $('#search-results').show();
 }
 
@@ -58,7 +63,6 @@ function search_request(query) {
         contentType: "application/json; charset=utf-8;",
         dataType: "json",
         success: function(response) {
-            console.log(`Got the following tracks: ${response}`);
             populate_results(response);
         }
     });
