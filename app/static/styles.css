@@ -2,6 +2,10 @@ body {
     min-width: 320px;
 }
 
+.username-text {
+    font-size: calc(1rem + 1vw);
+}
+
 a.navbar-item {
     font-size: large;
     color: black;

@@ -10,7 +10,7 @@
                 <img class="card-img img-thumbnail rounded-circle profile-pfp" src="/static/person.svg" alt="Profile Picture">
                 <div class="d-block">
                     {% if user.name %}
-                        <h3>{{ user.name }}</h3>
+                        <h3 class="username-text">{{ user.name }}</h3>
                         <span class="align-middle">@{{ user.username }}</span>
                     {% else %}
                         <h3>@{{ user.username}}</h3>
