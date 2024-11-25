@@ -28,4 +28,4 @@ login_manager.init_app(app)
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s | %(levelname)s | %(message)s")
 
-from app import views, models
+from app import views, login_endpoints, ajax_endpoints, models
