@@ -1,6 +1,4 @@
 import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
 from app.models import User, Follow
 from app.user_repository import db, UserRepository
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -21,7 +19,13 @@ class TestUserRepository:
 
             existing_user = User(user_id=1, username="existinguser", password=generate_password_hash("password"), name="initial", bio="initial")
 
+            fuser1 = User(user_id=2, username="fuser1", password=generate_password_hash("password"))
+            fuser2 = User(user_id=3, username="fuser2", password=generate_password_hash("password"))
+
             db.session.add(existing_user)
+            db.session.add(fuser1)
+            db.session.add(fuser2)
+
             db.session.commit()
 
             yield app
@@ -148,32 +152,55 @@ class TestUserRepository:
         assert not result
         assert check_password_hash(user.password, "password")
 
-    def test_updatePassword_withNoConfirmPassword_doesNotUpdatePassword(self):
-        assert 1 == 1
+    def test_updatePassword_withNoConfirmPassword_doesNotUpdatePassword(self, repo, db_session):
+        result = repo.updateUser(1, None, "newpassword", "", None)
+        user = db_session.query(User).filter_by(user_id=1).first()
 
-    def test_updatePassword_withDifferentConfirmPassword_doesNotUpdatePassword(self):
-        assert 1 == 1
+        assert not result
+        assert check_password_hash(user.password, "password")
+    
+    def test_updatePassword_withDifferentConfirmPassword_doesNotUpdatePassword(self, repo, db_session):
+        result = repo.updateUser(1, None, "newpassword", "otherpassword", None)
+        user = db_session.query(User).filter_by(user_id=1).first()
+
+        assert not result
+        assert check_password_hash(user.password, "password")
 
     """
     Set Follow tests.
     """
-    def test_setFollow_true_withExistingUsername_createsFollow(self):
-        assert 1 == 1
+    def test_setFollow_true_withExistingUsername_createsFollow(self, repo, db_session):
+        result = repo.setFollow(1, "fuser1", True)
 
-    def test_setFollow_false_withExistingUsername_removesFollow(self):
-        assert 1 == 1
+        assert result
+        assert db_session.query(Follow).filter_by(follower=1, followed=2).count() == 1
 
-    def test_setFollow_withUserIdMatchingUsername_returnsFalse(self):
-        assert 1 == 1
+    def test_setFollow_false_withExistingUsername_removesFollow(self, repo, db_session):
+        db_session.add(Follow(follower=1, followed=2))
+        db_session.commit()
 
-    def test_setFollow_withNonExistantUsername_returnsFalse(self):
-        assert 1 == 1
+        result = repo.setFollow(1, "fuser1", False)
+
+        assert result
+        assert db_session.query(Follow).filter_by(follower=1, followed=2).count() == 0
+
+    def test_setFollow_withUserIdMatchingUsername_returnsFalse(self, repo, db_session):
+        result = repo.setFollow(1, "existinguser", True)
+
+        assert not result
+        assert db_session.query(Follow).filter_by(follower=1, followed=1).count() == 0
+
+    def test_setFollow_withNonExistantUsername_returnsFalse(self, repo):
+        assert not repo.setFollow(1, "idontexist", True)
 
     """
     Is Following tests.
     """
-    def test_isFollowing_withExistingFollow_returnsTrue(self):
-        assert 1 == 1
+    def test_isFollowing_withExistingFollow_returnsTrue(self, repo, db_session):
+        db_session.add(Follow(follower=1, followed=2))
+        db_session.commit()
 
-    def test_isFollowing_withNonExistantFollow_returnsFalse(self):
-        assert 1 == 1
+        assert repo.isFollowing(1, 2)
+
+    def test_isFollowing_withNonExistantFollow_returnsFalse(self, repo, db_session):
+        assert not repo.isFollowing(1, 2)
