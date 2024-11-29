@@ -10,7 +10,7 @@ class UserRepository:
     def createUser(self, username, password):
         existing_user = self.getUserByUsername(username)
 
-        if existing_user == None:
+        if existing_user != None:
             logger.warning(f"Cannot create user. User with username '{username}' already exists.")
             return None
         
