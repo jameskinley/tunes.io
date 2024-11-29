@@ -36,5 +36,6 @@ def search():
 @login_required
 def like():
     repo = PostRepository()
-    repo.setLike(current_user.user_id, request.json['post_id'], request.json['state'])
-    return json.dumps({'status': 'OK'})
+    state = repo.setLike(current_user.user_id, request.json['post_id'], request.json['state'])
+    
+    return json.dumps({'status': 'OK'}) if state else json.dumps({'status': 'ERROR'})

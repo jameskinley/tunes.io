@@ -1,6 +1,7 @@
 from app import db, logging as logger
 from .models import Post, Like
 from .post_model import PostModel
+from .user_repository import UserRepository
 from .spotify_client import SpotifyClient
 
 """
@@ -50,14 +51,25 @@ class PostRepository():
     def setLike(self, user_id, post_id, state):
         logger.debug(f"Setting post {post_id} to like state {state}")
 
+        userRepo = UserRepository()
+        if userRepo.getUserById(user_id) == None:
+            logger.error(f"Cannot set post like. User ID '{user_id}' does not exist.")
+            return False
+
+        if Post.query.filter_by(post_id=post_id).first() == None:
+            logger.error(f"Cannot set post like. Post ID '{post_id}' does not exist.")
+            return False
+
         if state:
             like = Like(user_id=user_id, post_id=post_id)
             db.session.add(like)
             db.session.commit()
-            return
+            return True
         
         existing_like = Like.query.filter_by(post_id=post_id, user_id=user_id).first()
 
         if existing_like:
             db.session.delete(existing_like)
             db.session.commit()
+
+        return True
