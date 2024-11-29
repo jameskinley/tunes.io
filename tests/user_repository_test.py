@@ -19,7 +19,7 @@ class TestUserRepository:
         with app.app_context():
             db.create_all()
 
-            existing_user = User(user_id=1, username="existinguser", password="password")
+            existing_user = User(user_id=1, username="existinguser", password=generate_password_hash("password"), name="initial", bio="initial")
 
             db.session.add(existing_user)
             db.session.commit()
@@ -85,29 +85,68 @@ class TestUserRepository:
     """
     Update User tests.
     """
-    def test_updateUser_withExistingUser_andValidDetails_updatesUser(self):
-        assert 1 == 1
+    def test_updateUser_withExistingUser_andValidDetails_updatesUser(self, repo, db_session):
+        password = "newpassword"
+        result = repo.updateUser(1, "name", password, password, "bio")
 
-    def test_updateUser_withNonExistantUser_returnsFalse(self):
-        assert 1 == 1
+        user = db_session.query(User).filter_by(user_id=1).first()
 
-    def test_updateUser_withName_updatesName(self):
-        assert 1 == 1
+        assert result
+        assert user.name == "name"
+        assert check_password_hash(user.password, password)
+        assert user.bio == "bio"
 
-    def test_updateUser_withEmptyName_doesNotUpdateName(self):
-        assert 1 == 1
+    def test_updateUser_withNonExistantUser_returnsFalse(self, repo):
+        result = repo.updateUser(999999, "name", "pword", "pword", "bio")
+        assert not result
 
-    def test_updateUser_withBio_updatesBio(self):
-        assert 1 == 1
+    def test_updateUser_withName_updatesNameOnly(self, repo, db_session):
+        result = repo.updateUser(1, "newname", None, None, None)
+        user = db_session.query(User).filter_by(user_id=1).first()
 
-    def test_updateUser_withEmptyBio_doesNotUpdateBio(self):
-        assert 1 == 1
+        assert result
+        assert user.name == "newname"
+        assert check_password_hash(user.password, "password")
+        assert user.bio == "initial"
 
-    def test_updatePassword_withConfirmPassword_updatesPassword(self):
-        assert 1 == 1
+    def test_updateUser_withEmptyName_doesNotUpdateName(self, repo, db_session):
+        result = repo.updateUser(1, "", None, None, None)
+        user = db_session.query(User).filter_by(user_id=1).first()
 
-    def test_updatePassword_withExistingPassword_doesNotUpdatePassword(self):
-        assert 1 == 1
+        assert result
+        assert user.name == "initial"
+
+    def test_updateUser_withBio_updatesBioOnly(self, repo, db_session):
+        result = repo.updateUser(1, None, None, None, "newbio")
+        user = db_session.query(User).filter_by(user_id=1).first()
+
+        assert result
+        assert user.name == "initial"
+        assert check_password_hash(user.password, "password")
+        assert user.bio == "newbio"
+
+    def test_updateUser_withEmptyBio_doesNotUpdateBio(self, repo, db_session):
+        result = repo.updateUser(1, None, None, None, "")
+        user = db_session.query(User).filter_by(user_id=1).first()
+
+        assert result
+        assert user.bio == "initial"
+
+    def test_updatePassword_withConfirmPassword_updatesPasswordOnly(self, repo, db_session):
+        result = repo.updateUser(1, None, "newpassword", "newpassword", None)
+        user = db_session.query(User).filter_by(user_id=1).first()
+
+        assert result
+        assert check_password_hash(user.password, "newpassword")
+        assert user.name == "initial"
+        assert user.bio == "initial"
+
+    def test_updatePassword_withExistingPassword_doesNotUpdatePassword(self, repo, db_session):
+        result = repo.updateUser(1, None, "password", "password", None)
+        user = db_session.query(User).filter_by(user_id=1).first()
+
+        assert not result
+        assert check_password_hash(user.password, "password")
 
     def test_updatePassword_withNoConfirmPassword_doesNotUpdatePassword(self):
         assert 1 == 1

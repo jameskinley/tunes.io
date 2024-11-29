@@ -43,11 +43,11 @@ class UserRepository:
             logger.error("Could not locate user in database.")
             return False
         
-        if name != None or name != "" and user.name != name:
+        if name != None and name != "" and user.name != name:
             logger.debug("Updating user name")
             user.name = name
 
-        if bio != None or bio != "" and user.bio != bio:
+        if bio != None and bio != "" and user.bio != bio:
             logger.debug("Updating user bio")
             user.bio = bio
 
