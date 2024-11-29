@@ -9,6 +9,9 @@ Contains methods for manipulating and querying Post records.
 """
 class PostRepository():
 
+    def __init__(self, spotifyClient = SpotifyClient()):
+        self.sp = spotifyClient
+
     """
     Creates a new post for the given user_id, with the track_id and description provided.
     """
@@ -30,12 +33,10 @@ class PostRepository():
             post_raw =  Post.query.order_by(Post.post_id.desc())
         else:
             post_raw = Post.query.filter_by(user_id=userfilter).order_by(Post.post_id.desc())
-
-        sp = SpotifyClient()
         posts = []
 
         for postr in post_raw:
-            track = sp.get_track(postr.track_id)
+            track = self.sp.get_track(postr.track_id)
             logger.debug(f"Got track: {track.to_dict()}")
             posts.append(PostModel(any(like.user_id == current_user_id for like in postr.likes), 
                                 postr.post_id, track, 
