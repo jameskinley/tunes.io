@@ -19,7 +19,7 @@ def login():
     if request.method == "GET":
         return render_template("authform.html", authaction='/login', submitbtn_text='Login', form=form)
     
-    form.loginHandler()
+    return form.loginHandler()
 
 @app.route('/logout')
 def logout():

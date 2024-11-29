@@ -6,15 +6,16 @@ from wtforms.validators import DataRequired, Length
 from werkzeug.security import check_password_hash
 from .user_repository import UserRepository
 from .password_validator import PasswordValidator
+from .username_validator import UsernameValidator
 
 """
 Form to allow uses to login / signup.
 """
 class SignupForm(FlaskForm):
     """
-    Username input.
+    Username input. Usernames must be a maximum of 50 characters, and be solely alphanumeric.
     """
-    username = StringField('Username', validators=[DataRequired(), Length(max=50)])
+    username = StringField('Username', validators=[DataRequired(), Length(max=50), UsernameValidator()])
 
     """
     Password input. Passwords must be at least 10 characters in length, have at least 1 capital letter, special character, and number.

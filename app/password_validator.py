@@ -4,7 +4,6 @@ from wtforms.validators import ValidationError
 ADAPTED FROM MY COURSEWORK ONE SUBMISSION
 
 Flask WTForms validator for password fields.
-Ensures a date is between a minimum and maximum date.
 
 Follows the structure defined in other Flask Validators.
 https://wtforms.readthedocs.io/en/2.3.x/validators/
