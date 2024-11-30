@@ -69,7 +69,7 @@ def profile():
         if user.user_id == current_user.user_id:
             is_current_user = True
         else:
-            following = repo.isFollowing(current_user.user_id, user.user_d)
+            following = repo.isFollowing(current_user.user_id, user.user_id)
 
         repo = PostRepository()
         return render_template("profile.html", 
