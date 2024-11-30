@@ -18,29 +18,39 @@
                     <span class="invalid-feedback" id="settings-name-error"></span>
                 </p>
                 <p>
-                    {{ settings_form.password.label() }}
-                    {{ settings_form.password(class='form-control', data_toggle='tooltip', title='Change your password.')}}
-                    <p class="invalid-feedback" id="settings-password-error"></p>
-                </p>
-                <p>
-                    {{ settings_form.confirmpassword.label() }}
-                    {{ settings_form.confirmpassword(class='form-control', data_toggle='tooltip', title='Confirm your new password.')}}
-                    <span class="invalid-feedback" id="settings-confirmpassword-error"></span>
-                </p>
-                <p>
                     {{ settings_form.bio.label() }}
                     {{ settings_form.bio(class='form-control', data_toggle='tooltip', title='Tell everyone a little about yourself!')}}
                     <span class="invalid-feedback" id="settings-bio-error"></span>
+                </p>
+                <p>
+                    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
+                        <span data-toggle="tooltip" title="Click to change your password.">Change Password&nbsp;<img src="/static/caret-down.svg" alt="Dropdrown Icon"></span>
+                    </button>
+                    <p class="collapse">
+                        {{ settings_form.password.label() }}
+                        {{ settings_form.password(class='form-control', data_toggle='tooltip', title='Change your password.')}}
+                        <p class="invalid-feedback" id="settings-password-error"></p>
+                    </p>
+                    <p class="collapse">
+                        {{ settings_form.confirmpassword.label() }}
+                        {{ settings_form.confirmpassword(class='form-control', data_toggle='tooltip', title='Confirm your new password.')}}
+                        <span class="invalid-feedback" id="settings-confirmpassword-error"></span>
+                    </p>
                 </p>
                 <div class="d-flex">
                     <button id="settings-submit" type="submit" class="btn btn-primary">
                         Save Changes
                     </button>
                 </div>
-                {% if error_message %}
-                    <p>{{ error_message }}</p>
-                {% endif %}
             </form>
+            <br>
+            {% if status %}
+                {% if status == true %}
+                    <p class="text-success">Successfully updated user details.</p>
+                {% else %}
+                    <p class="text-danger">Unable to update user details: Please ensure fields are valid.</p>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

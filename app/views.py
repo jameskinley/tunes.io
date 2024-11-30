@@ -94,19 +94,30 @@ def settings():
     settings_form = SettingsForm(prefix='settings')
 
     if request.method == 'GET':
+        val = request.args.get('success')
+
+        status = None
+        if val == 'true':
+            status = True
+        elif val == 'false':
+            status = False
+
         settings_form.SetUserDefaults(current_user)
         repo = UserRepository()
         return render_template("settings.html", 
                                form=form, 
                                user= repo.getUserById(current_user.user_id), 
-                               settings_form=settings_form)
+                               settings_form=settings_form,
+                               status=status)
     
     if form.track_id.data:
         form.handler(current_user)
         return redirect('/')
     
-    settings_form.Handler(current_user)
-    return redirect('/settings')
+    if(settings_form.Handler(current_user)):
+        return redirect('/settings?success=true')
+    
+    return redirect('/settings?success=false')
 
 """
 Redirect set up for when a user has been newly registered.

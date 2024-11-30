@@ -18,7 +18,7 @@ class SettingsForm(FlaskForm):
     """
     Password input.
     """
-    password = PasswordField(label="Password", validators=[PasswordValidator(optional=True)])
+    password = PasswordField(label="New Password", validators=[PasswordValidator(optional=True)])
 
     """
     Confirm password input.
