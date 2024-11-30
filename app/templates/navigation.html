@@ -33,26 +33,34 @@
                         <a class="nav-link navbar-item" id="nav-btn-home" data-toggle="tooltip"
                             title="View the main feed" href="/" aria-selected="{{ home_active }}" aria-controls="home"
                             role="tab">
-                            <img src="{{ home_icon }}" alt="Home Icon">&nbsp;<span class="d-none d-sm-inline-block">Home</span>
+                            <img src="{{ home_icon }}" alt="Home Icon">&nbsp;<span
+                                class="d-none d-sm-inline-block">Home</span>
                         </a>
                         <a class="nav-link navbar-item" data-toggle="tooltip" title="View your profile"
                             id="nav-btn-profile" href="/profile?user={{ user.username }}"
                             aria-selected="{{ profile_active }}" aria-controls="profile" role="tab">
-                            <img src="{{ profile_icon }}" alt="Profile Icon">&nbsp;<span class="d-none d-sm-inline-block">Profile</span>
+                            <img src="{{ profile_icon }}" alt="Profile Icon">&nbsp;<span
+                                class="d-none d-sm-inline-block">Profile</span>
                         </a>
                         <a class="nav-link navbar-item" id="nav-btn-settings" data-toggle="tooltip"
                             title="Change account settings." href="/settings" aria-selected="{{ settings_active }}"
                             aria-controls="settings" role="tab">
-                            <img src="{{ settings_icon }}" alt="Settings Icon">&nbsp;<span class="d-none d-sm-inline-block">Settings</span>
+                            <img src="{{ settings_icon }}" alt="Settings Icon">&nbsp;<span
+                                class="d-none d-sm-inline-block">Settings</span>
                         </a>
                         <button class="btn newpost-button" id="nav-btn-newpost" data-toggle="modal"
                             data-target="#new-post" aria-controls="new-post" , role="button">
-                            <img src="/static/plus-circle.svg" alt="New Post Icon">&nbsp;<span class="d-none d-sm-inline-block">New
-                                Post</span>
+                            <span data-toggle="tooltip" title="Add a new post">
+                                <img src="/static/plus-circle.svg" alt="New Post Icon">
+                                <span class="d-none d-sm-inline-block">
+                                    &nbsp;New Post
+                                </span>
+                            </span>
                         </button>
                         <button type="button" class="btn logout-button" data-toggle="tooltip"
                             title="Logout from tunes.io" onclick="location.href='/logout'">
-                            <img src="/static/logout.svg" alt="Logout Icon">&nbsp;<span class="d-none d-sm-inline-block">Logout</span>
+                            <img src="/static/logout.svg" alt="Logout Icon">&nbsp;<span
+                                class="d-none d-sm-inline-block">Logout</span>
                         </button>
                     </div>
                 </div>
