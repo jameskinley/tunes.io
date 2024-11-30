@@ -183,6 +183,10 @@ span.like-count {
     font-weight: bold;
 }
 
+span.post-title {
+    font-size: large;
+}
+
 #new-post {
     z-index: 1101;
 }
@@ -203,4 +207,35 @@ button.btn-notfollowing{
 
 #auth-submit {
     margin-right: 1rem;
+}
+
+/* TAKEN FROM MY COURSEWORK ONE SUBMISSION */
+/* Overriding Bootsrap Classes for better contrast */
+.btn-primary {
+    background-color: #2200ff;
+    border-color: #2200ff;
+}
+
+.btn-info { 
+    background-color: #22646e;
+    border-color: #22646e;
+}
+
+.btn-secondary {
+    background-color: #4b4b4b;
+    border-color: #4b4b4b;
+}
+
+a.link {
+    color: #2200ff;
+}
+
+.card-header {
+    color: black;
+    background-color: lightgray;
+}
+
+.card-footer {
+    color: black;
+    background-color: white;
 }
