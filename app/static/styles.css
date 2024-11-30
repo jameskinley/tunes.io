@@ -127,6 +127,10 @@ a.profile-link {
     color: black;
 }
 
+.font-weight-semibold {
+    font-weight: 500;
+}
+
 .margin-centre {
     margin-left: auto;
     margin-right: auto;
