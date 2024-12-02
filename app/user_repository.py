@@ -14,10 +14,13 @@ class UserRepository:
             logger.warning(f"Cannot create user. User with username '{username}' already exists.")
             return None
         
+        logger.info(f"Creating user '{username}'")
         user = User(username=username, password=generate_password_hash(password))
 
         db.session.add(user)
         db.session.commit()
+
+        logger.info(f"Successfully created user '{username}'")
 
         return user
 
@@ -31,6 +34,7 @@ class UserRepository:
     Gets a user by the given username.
     """
     def getUserByUsername(self, username):
+        logger.debug(f"Searching for user '{username}'")
         return User.query.filter_by(username=username).first()
 
     """
@@ -42,6 +46,8 @@ class UserRepository:
         if user == None:
             logger.error("Could not locate user in database.")
             return False
+        
+        logger.debug(f"Making updates to user: '{user.username}'")
         
         if name != None and name != "" and user.name != name:
             logger.debug("Updating user name")
@@ -64,6 +70,7 @@ class UserRepository:
             user.password = hash
 
         db.session.commit()
+        logger.debug(f"Successfully made updates to user '{user.username}'")
         return True
 
     """

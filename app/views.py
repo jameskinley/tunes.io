@@ -13,7 +13,7 @@ Guards pages that require login by redirecting unauthenticated users to the logi
 """
 def login_guard():
     if not current_user.is_authenticated:
-        logger.info("User is not authenticated. Redirecting to login.")
+        logger.info("User is not authenticated. Redirecting to /login.")
         return redirect('/login')
 
 """

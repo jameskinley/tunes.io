@@ -6,6 +6,9 @@ from .spotify_client import SpotifyClient
 from .user_repository import UserRepository
 from .post_repository import PostRepository
 
+"""
+AJAX Endpoint to create / remove a following relation between two users.
+"""
 @app.route('/follow', methods=['POST'])
 @login_required
 def follow():
@@ -14,6 +17,9 @@ def follow():
         return json.dumps({'status': 'OK'})
     return json.dumps({'status': 'ERROR'})
 
+"""
+AJAX Endpoint to search the Spotify API with a user's search query.
+"""
 @app.route('/search', methods=['POST'])
 @login_required
 def search():
@@ -32,6 +38,9 @@ def search():
 
     return json.dumps(tracks)
 
+"""
+AJAX Endpoint to create / remove a user's like on a post.
+"""
 @app.route('/like', methods=['POST'])
 @login_required
 def like():

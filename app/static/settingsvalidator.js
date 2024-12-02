@@ -10,7 +10,7 @@ import { validatePassword, confirmPassword } from "./passwordvalidator.js";
 const fields = [
     {
         id: '#settings-name',
-        invalid_message: 'Name cannot be longer than 50 characters.',
+        invalid_message: 'Name cannot be longer than 30 characters.',
         validate: function () {  let value = $(this.id).val(); return value.length >= 30; }
     },
     {

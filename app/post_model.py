@@ -1,3 +1,6 @@
+"""
+DTO for user posts.
+"""
 class PostModel:
     def __init__(self, user_liked, post_id, track, username, likes, description):
         self.user_liked = user_liked
