@@ -5,22 +5,22 @@
           <!--Populated by search.js-->
       </div>
         <div class="modal-header">
-          <h5 class="modal-title">New Post</h5>
+          <span class="modal-title newpost-title">New Post</span>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body margin-centre d-block">
           <div class="text-center">
-            <h4>What are you listening to?</h4>
+            <label class="newpost-label" for="search-input">What are you listening to?</label>
           </div>
           {% include "song_search.html" %}
             <form method="POST", action="/">
               {{ form.hidden_tag() }}
-              <div id="post-preview" class="post-preview d-none">
+              <div id="post-preview" class="post-preview d-none" aria-hidden="true">
                 <img id="song-artwork" class="full-centre rounded" width="100px" height="100px" src="", alt="Album Cover">
                 <div class="d-block full-centre">
-                    <h6 id="song-title"></h6>
+                    <h6 id="song-title">Song title</h6>
                     <span id="song-album-artist"></span>
                 </div>
             </div>

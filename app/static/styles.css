@@ -191,6 +191,16 @@ span.post-title {
     font-size: large;
 }
 
+.newpost-title {
+    font-size: larger;
+    font-weight: 400;
+}
+
+label.newpost-label {
+    font-size: x-large;
+    font-weight: 500;
+}
+
 #new-post {
     z-index: 1101;
 }

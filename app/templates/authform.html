@@ -8,63 +8,63 @@
     {% set submit_disabled = '' %}
     {% set aria_disabled = 'false' %}
 {% endif %}
-
-<div class="container">
-    <div class="card justify-content-center">
-        <div class="card-header">
-            {% include "brand.html" %}
-        </div>
-        <div class="card-body">
-            <h2>
-                {{ submitbtn_text }}
-            </h2>
-            <form id="auth-form" action="{{ authaction }}", method="POST", name="Signup Form">
-                {{ form.hidden_tag() }}
-                <p>
-                    {{ form.username.label() }}
-                    {{ form.username(class='form-control')}}
-                    <span class="invalid-feedback" id="username-error">
-                    </span>
-                </p>
-                <p>
-                    {{ form.password.label() }}
-                    {{ form.password(class='form-control')}}
-                    <span class="invalid-feedback" id="password-error"></span>
-                </p>
-                <p>
-                    {% if authaction == "/signup" %}
-                        {{ form.confirm_password.label() }}
-                        {{ form.confirm_password(class='form-control')}}
-                        <span class="invalid-feedback" id="confirm_password-error"></span>
-                    {% else %}
-                        {{ form.remember }}
-                        {{ form.remember.label() }}
-                    {% endif %}
-                </p>
-                <div class="d-flex">
-                    <button id="auth-submit" type="submit" class="btn btn-primary" {{ submit_disabled }} aria-disabled="{{ aria_disabled }}">
-                        {{ submitbtn_text }}
-                    </button>
-                    <span class="aux-link">
-                        {% if submitbtn_text == "Login" %}
-                            Not got an account? 
-                            <a class="link" href="/signup">
-                                Sign up here!
-                            </a>
+<main>
+    <div class="container">
+        <div class="card justify-content-center">
+            <div class="card-header">
+                {% include "brand.html" %}
+            </div>
+            <div class="card-body">
+                <h2>
+                    {{ submitbtn_text }}
+                </h2>
+                <form id="auth-form" action="{{ authaction }}", method="POST", name="Signup Form">
+                    {{ form.hidden_tag() }}
+                    <p>
+                        {{ form.username.label() }}
+                        {{ form.username(class='form-control')}}
+                        <span class="invalid-feedback" id="username-error">
+                        </span>
+                    </p>
+                    <p>
+                        {{ form.password.label() }}
+                        {{ form.password(class='form-control')}}
+                        <span class="invalid-feedback" id="password-error"></span>
+                    </p>
+                    <p>
+                        {% if authaction == "/signup" %}
+                            {{ form.confirm_password.label() }}
+                            {{ form.confirm_password(class='form-control')}}
+                            <span class="invalid-feedback" id="confirm_password-error"></span>
                         {% else %}
-                            Already got an account?
-                            <a class="link" href="/login">
-                                Sign in here!
-                            </a>
+                            {{ form.remember }}
+                            {{ form.remember.label() }}
                         {% endif %}
-                    </span>
-                </div>
-                {% if error_message %}
-                    <span>{{ error_message }}</span>
-                {% endif %}
-            </form>
+                    </p>
+                    <div class="d-flex">
+                        <button id="auth-submit" type="submit" class="btn btn-primary" {{ submit_disabled }} aria-disabled="{{ aria_disabled }}">
+                            {{ submitbtn_text }}
+                        </button>
+                        <span class="aux-link">
+                            {% if submitbtn_text == "Login" %}
+                                Not got an account? 
+                                <a class="link" href="/signup">
+                                    Sign up here!
+                                </a>
+                            {% else %}
+                                Already got an account?
+                                <a class="link" href="/login">
+                                    Sign in here!
+                                </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% if error_message %}
+                        <span>{{ error_message }}</span>
+                    {% endif %}
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
+</main>
 {% endblock %}

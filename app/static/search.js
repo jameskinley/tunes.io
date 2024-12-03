@@ -15,6 +15,7 @@ function set_song(id) {
 
     $('#post-preview').removeClass('d-none');
     $('#post-preview').addClass('d-flex');
+    $('#post-preview').attr('aria-hidden', 'false');
 
     $('#post-description').removeClass('d-none');
     $('#post-description').addClass('d-block');
@@ -32,7 +33,7 @@ function get_html(response) {
     response.forEach(track => {
         html += `
             <a id="${track.track_external_id}" tabindex="0" class="d-flex border search-panel profile-link" onclick="set_song(this.id)">
-                <img class="search-artwork" src="${track.artwork}" alt="Artwork" width="75px" height="75px">
+                <img class="search-artwork" src="${track.artwork}" alt="${track.album} artwork" width="75px" height="75px">
                 <div class="d-block">
                     <strong>${track.title}</strong>
                     <p class="overflow-wrap">${track.album} &#x2022; ${track.artist}</p>
